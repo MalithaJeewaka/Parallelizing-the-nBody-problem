@@ -1,4 +1,4 @@
-# N-Body Simulation: Evaluation Running Guide 🚀
+# N-Body Simulation: Execution Guide 
 
 This guide provides exactly what you need to type into your terminal tomorrow to demonstrate the sequential (1 CPU Core) and OpenMP (Multi-Core) simulations, and to prove that both outputs calculate the exact same universe state.
 
