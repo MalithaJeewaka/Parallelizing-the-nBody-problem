@@ -105,7 +105,6 @@ mv readable_output.txt openmp_readable.txt
 ```
 
 ### 5. Visually Peak at the Data
-Show the evaluator what the particle data actually looks like:
 ```bash
 head -n 12 sequential_readable.txt
 ```
