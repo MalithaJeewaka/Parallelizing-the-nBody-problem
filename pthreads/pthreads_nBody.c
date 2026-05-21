@@ -19,12 +19,13 @@ typedef struct {
     float dt;
     int start;
     int end;
+    int n;
 } ThreadData;
 
 /* Function prototypes */
 int convertStringToInt(char* str);
 void* bodyForceThread(void* arg);
-void bodyForce(Particle* p, float dt, int start, int end);
+void bodyForce(Particle* p, float dt, int start, int end, int n);
 void computeForces(Particle* particles, float dt, int n, int num_threads);
 double getCurrentTime();
 
@@ -99,6 +100,7 @@ void computeForces(Particle* particles, float dt, int n, int num_threads) {
         thread_data[i].dt = dt;
         thread_data[i].start = i * chunk_size;
         thread_data[i].end = (i == num_threads - 1) ? n : (i + 1) * chunk_size;
+        thread_data[i].n = n;
         pthread_create(&threads[i], NULL, bodyForceThread, &thread_data[i]);
     }
 
@@ -109,17 +111,17 @@ void computeForces(Particle* particles, float dt, int n, int num_threads) {
 
 void* bodyForceThread(void* arg) {
     ThreadData* data = (ThreadData*)arg;
-    bodyForce(data->particles, data->dt, data->start, data->end);
+    bodyForce(data->particles, data->dt, data->start, data->end, data->n);
     return NULL;
 }
 
-void bodyForce(Particle* p, float dt, int start, int end) {
+void bodyForce(Particle* p, float dt, int start, int end, int n) {
     for (int i = start; i < end; i++) {
         float Fx = 0.0f;
         float Fy = 0.0f;
         float Fz = 0.0f;
 
-        for (int j = 0; j < end; j++) {
+        for (int j = 0; j < n; j++) {
             if (i != j) {
                 float dx = p[j].x - p[i].x;
                 float dy = p[j].y - p[i].y;
