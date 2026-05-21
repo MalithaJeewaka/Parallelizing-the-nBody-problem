@@ -1,0 +1,684 @@
+Iteration 1 of 10 completed in 0.027111 seconds
+Iteration 2 of 10 completed in 0.019823 seconds
+Iteration 3 of 10 completed in 0.024468 seconds
+Iteration 4 of 10 completed in 0.026125 seconds
+Iteration 5 of 10 completed in 0.021139 seconds
+Iteration 6 of 10 completed in 0.030126 seconds
+Iteration 7 of 10 completed in 0.020736 seconds
+Iteration 8 of 10 completed in 0.022004 seconds
+Iteration 9 of 10 completed in 0.020071 seconds
+Iteration 10 of 10 completed in 0.018208 seconds
+
+Avg iteration time: 0.023058 seconds
+Total time: 0.230583 seconds
+Number of particles: 1000 
+Number of threads used: 2 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.079975 seconds
+Iteration 2 of 10 completed in 0.072067 seconds
+Iteration 3 of 10 completed in 0.075556 seconds
+Iteration 4 of 10 completed in 0.087053 seconds
+Iteration 5 of 10 completed in 0.068949 seconds
+Iteration 6 of 10 completed in 0.071504 seconds
+Iteration 7 of 10 completed in 0.073015 seconds
+Iteration 8 of 10 completed in 0.071290 seconds
+Iteration 9 of 10 completed in 0.077663 seconds
+Iteration 10 of 10 completed in 0.087701 seconds
+
+Avg iteration time: 0.076570 seconds
+Total time: 0.765700 seconds
+Number of particles: 2000 
+Number of threads used: 2 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.162869 seconds
+Iteration 2 of 10 completed in 0.170491 seconds
+Iteration 3 of 10 completed in 0.153838 seconds
+Iteration 4 of 10 completed in 0.152788 seconds
+Iteration 5 of 10 completed in 0.189863 seconds
+Iteration 6 of 10 completed in 0.177376 seconds
+Iteration 7 of 10 completed in 0.150194 seconds
+Iteration 8 of 10 completed in 0.161045 seconds
+Iteration 9 of 10 completed in 0.186654 seconds
+Iteration 10 of 10 completed in 0.152156 seconds
+
+Avg iteration time: 0.165819 seconds
+Total time: 1.658189 seconds
+Number of particles: 3000 
+Number of threads used: 2 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.309329 seconds
+Iteration 2 of 10 completed in 0.269050 seconds
+Iteration 3 of 10 completed in 0.272854 seconds
+Iteration 4 of 10 completed in 0.274943 seconds
+Iteration 5 of 10 completed in 0.289479 seconds
+Iteration 6 of 10 completed in 0.274481 seconds
+Iteration 7 of 10 completed in 0.306789 seconds
+Iteration 8 of 10 completed in 0.314287 seconds
+Iteration 9 of 10 completed in 0.272958 seconds
+Iteration 10 of 10 completed in 0.271149 seconds
+
+Avg iteration time: 0.285629 seconds
+Total time: 2.856290 seconds
+Number of particles: 4000 
+Number of threads used: 2 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.470155 seconds
+Iteration 2 of 10 completed in 0.492983 seconds
+Iteration 3 of 10 completed in 0.475333 seconds
+Iteration 4 of 10 completed in 0.436982 seconds
+Iteration 5 of 10 completed in 0.563474 seconds
+Iteration 6 of 10 completed in 0.423487 seconds
+Iteration 7 of 10 completed in 0.565220 seconds
+Iteration 8 of 10 completed in 0.427343 seconds
+Iteration 9 of 10 completed in 0.463506 seconds
+Iteration 10 of 10 completed in 0.477769 seconds
+
+Avg iteration time: 0.479729 seconds
+Total time: 4.797292 seconds
+Number of particles: 5000 
+Number of threads used: 2 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.678197 seconds
+Iteration 2 of 10 completed in 0.670632 seconds
+Iteration 3 of 10 completed in 0.641571 seconds
+Iteration 4 of 10 completed in 0.658625 seconds
+Iteration 5 of 10 completed in 0.638515 seconds
+Iteration 6 of 10 completed in 0.683469 seconds
+Iteration 7 of 10 completed in 0.634433 seconds
+Iteration 8 of 10 completed in 0.611271 seconds
+Iteration 9 of 10 completed in 0.662971 seconds
+Iteration 10 of 10 completed in 0.740973 seconds
+
+Avg iteration time: 0.662195 seconds
+Total time: 6.621954 seconds
+Number of particles: 6000 
+Number of threads used: 2 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.980598 seconds
+Iteration 2 of 10 completed in 0.836114 seconds
+Iteration 3 of 10 completed in 0.872029 seconds
+Iteration 4 of 10 completed in 0.883209 seconds
+Iteration 5 of 10 completed in 0.986049 seconds
+Iteration 6 of 10 completed in 0.860315 seconds
+Iteration 7 of 10 completed in 1.005488 seconds
+Iteration 8 of 10 completed in 0.851428 seconds
+Iteration 9 of 10 completed in 0.898659 seconds
+Iteration 10 of 10 completed in 0.848982 seconds
+
+Avg iteration time: 0.902426 seconds
+Total time: 9.024262 seconds
+Number of particles: 7000 
+Number of threads used: 2 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 1.272563 seconds
+Iteration 2 of 10 completed in 1.456739 seconds
+Iteration 3 of 10 completed in 1.205704 seconds
+Iteration 4 of 10 completed in 1.383335 seconds
+Iteration 5 of 10 completed in 1.124299 seconds
+Iteration 6 of 10 completed in 1.236364 seconds
+Iteration 7 of 10 completed in 1.222001 seconds
+Iteration 8 of 10 completed in 1.316282 seconds
+Iteration 9 of 10 completed in 1.195006 seconds
+Iteration 10 of 10 completed in 1.230278 seconds
+
+Avg iteration time: 1.264394 seconds
+Total time: 12.643938 seconds
+Number of particles: 8000 
+Number of threads used: 2 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 1.551576 seconds
+Iteration 2 of 10 completed in 1.404990 seconds
+Iteration 3 of 10 completed in 1.463506 seconds
+Iteration 4 of 10 completed in 1.394531 seconds
+Iteration 5 of 10 completed in 1.458577 seconds
+Iteration 6 of 10 completed in 1.562802 seconds
+Iteration 7 of 10 completed in 1.558879 seconds
+Iteration 8 of 10 completed in 1.420848 seconds
+Iteration 9 of 10 completed in 1.452852 seconds
+Iteration 10 of 10 completed in 1.460112 seconds
+
+Avg iteration time: 1.472976 seconds
+Total time: 14.729764 seconds
+Number of particles: 9000 
+Number of threads used: 2 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 1.886042 seconds
+Iteration 2 of 10 completed in 1.833711 seconds
+Iteration 3 of 10 completed in 1.866970 seconds
+Iteration 4 of 10 completed in 1.915259 seconds
+Iteration 5 of 10 completed in 2.012674 seconds
+Iteration 6 of 10 completed in 1.751119 seconds
+Iteration 7 of 10 completed in 1.914427 seconds
+Iteration 8 of 10 completed in 1.857250 seconds
+Iteration 9 of 10 completed in 1.866919 seconds
+Iteration 10 of 10 completed in 1.880755 seconds
+
+Avg iteration time: 1.878613 seconds
+Total time: 18.786134 seconds
+Number of particles: 10000 
+Number of threads used: 2 
+
+--------------------------------------------------------
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.019801 seconds
+Iteration 2 of 10 completed in 0.015359 seconds
+Iteration 3 of 10 completed in 0.014568 seconds
+Iteration 4 of 10 completed in 0.016703 seconds
+Iteration 5 of 10 completed in 0.016404 seconds
+Iteration 6 of 10 completed in 0.015475 seconds
+Iteration 7 of 10 completed in 0.013345 seconds
+Iteration 8 of 10 completed in 0.015289 seconds
+Iteration 9 of 10 completed in 0.015732 seconds
+Iteration 10 of 10 completed in 0.016199 seconds
+
+Avg iteration time: 0.015991 seconds
+Total time: 0.159906 seconds
+Number of particles: 1000 
+Number of threads used: 4 
+
+------------------------------------------------------
+Iteration 1 of 10 completed in 0.056054 seconds
+Iteration 2 of 10 completed in 0.057655 seconds
+Iteration 3 of 10 completed in 0.046145 seconds
+Iteration 4 of 10 completed in 0.066767 seconds
+Iteration 5 of 10 completed in 0.035940 seconds
+Iteration 6 of 10 completed in 0.040585 seconds
+Iteration 7 of 10 completed in 0.043430 seconds
+Iteration 8 of 10 completed in 0.047807 seconds
+Iteration 9 of 10 completed in 0.043166 seconds
+Iteration 10 of 10 completed in 0.041008 seconds
+
+Avg iteration time: 0.047949 seconds
+Total time: 0.479492 seconds
+Number of particles: 2000 
+Number of threads used: 4 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.128726 seconds
+Iteration 2 of 10 completed in 0.122331 seconds
+Iteration 3 of 10 completed in 0.096939 seconds
+Iteration 4 of 10 completed in 0.115895 seconds
+Iteration 5 of 10 completed in 0.110067 seconds
+Iteration 6 of 10 completed in 0.089740 seconds
+Iteration 7 of 10 completed in 0.091670 seconds
+Iteration 8 of 10 completed in 0.102455 seconds
+Iteration 9 of 10 completed in 0.098770 seconds
+Iteration 10 of 10 completed in 0.116143 seconds
+
+Avg iteration time: 0.107405 seconds
+Total time: 1.074049 seconds
+Number of particles: 3000 
+Number of threads used: 4 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.184371 seconds
+Iteration 2 of 10 completed in 0.202574 seconds
+Iteration 3 of 10 completed in 0.182758 seconds
+Iteration 4 of 10 completed in 0.165685 seconds
+Iteration 5 of 10 completed in 0.169783 seconds
+Iteration 6 of 10 completed in 0.179284 seconds
+Iteration 7 of 10 completed in 0.187562 seconds
+Iteration 8 of 10 completed in 0.185779 seconds
+Iteration 9 of 10 completed in 0.166267 seconds
+Iteration 10 of 10 completed in 0.202291 seconds
+
+Avg iteration time: 0.182770 seconds
+Total time: 1.827695 seconds
+Number of particles: 4000 
+Number of threads used: 4 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.357514 seconds
+Iteration 2 of 10 completed in 0.260006 seconds
+Iteration 3 of 10 completed in 0.256812 seconds
+Iteration 4 of 10 completed in 0.283309 seconds
+Iteration 5 of 10 completed in 0.303357 seconds
+Iteration 6 of 10 completed in 0.316064 seconds
+Iteration 7 of 10 completed in 0.286386 seconds
+Iteration 8 of 10 completed in 0.298187 seconds
+Iteration 9 of 10 completed in 0.278255 seconds
+Iteration 10 of 10 completed in 0.274647 seconds
+
+Avg iteration time: 0.291604 seconds
+Total time: 2.916043 seconds
+Number of particles: 5000 
+Number of threads used: 4 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.435344 seconds
+Iteration 2 of 10 completed in 0.357698 seconds
+Iteration 3 of 10 completed in 0.409382 seconds
+Iteration 4 of 10 completed in 0.413578 seconds
+Iteration 5 of 10 completed in 0.382483 seconds
+Iteration 6 of 10 completed in 0.377883 seconds
+Iteration 7 of 10 completed in 0.361231 seconds
+Iteration 8 of 10 completed in 0.424160 seconds
+Iteration 9 of 10 completed in 0.477882 seconds
+Iteration 10 of 10 completed in 0.400398 seconds
+
+Avg iteration time: 0.404155 seconds
+Total time: 4.041546 seconds
+Number of particles: 6000 
+Number of threads used: 4 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.567641 seconds
+Iteration 2 of 10 completed in 0.462554 seconds
+Iteration 3 of 10 completed in 0.585162 seconds
+Iteration 4 of 10 completed in 0.523291 seconds
+Iteration 5 of 10 completed in 0.494370 seconds
+Iteration 6 of 10 completed in 0.476332 seconds
+Iteration 7 of 10 completed in 0.497929 seconds
+Iteration 8 of 10 completed in 0.492972 seconds
+Iteration 9 of 10 completed in 0.506246 seconds
+Iteration 10 of 10 completed in 0.487620 seconds
+
+Avg iteration time: 0.509514 seconds
+Total time: 5.095143 seconds
+Number of particles: 7000 
+Number of threads used: 4 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.726892 seconds
+Iteration 2 of 10 completed in 0.721948 seconds
+Iteration 3 of 10 completed in 0.679116 seconds
+Iteration 4 of 10 completed in 0.626921 seconds
+Iteration 5 of 10 completed in 0.644674 seconds
+Iteration 6 of 10 completed in 0.672481 seconds
+Iteration 7 of 10 completed in 0.665909 seconds
+Iteration 8 of 10 completed in 0.621423 seconds
+Iteration 9 of 10 completed in 0.675580 seconds
+Iteration 10 of 10 completed in 0.638988 seconds
+
+Avg iteration time: 0.667515 seconds
+Total time: 6.675146 seconds
+Number of particles: 8000 
+Number of threads used: 4 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.867107 seconds
+Iteration 2 of 10 completed in 0.810595 seconds
+Iteration 3 of 10 completed in 0.747178 seconds
+Iteration 4 of 10 completed in 0.945081 seconds
+Iteration 5 of 10 completed in 0.800117 seconds
+Iteration 6 of 10 completed in 0.809319 seconds
+Iteration 7 of 10 completed in 0.840163 seconds
+Iteration 8 of 10 completed in 0.898463 seconds
+Iteration 9 of 10 completed in 0.894582 seconds
+Iteration 10 of 10 completed in 0.949898 seconds
+
+Avg iteration time: 0.856375 seconds
+Total time: 8.563749 seconds
+Number of particles: 9000 
+Number of threads used: 4 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 1.108961 seconds
+Iteration 2 of 10 completed in 0.978313 seconds
+Iteration 3 of 10 completed in 1.045479 seconds
+Iteration 4 of 10 completed in 1.007231 seconds
+Iteration 5 of 10 completed in 0.989302 seconds
+Iteration 6 of 10 completed in 1.077739 seconds
+Iteration 7 of 10 completed in 1.097866 seconds
+Iteration 8 of 10 completed in 1.082073 seconds
+Iteration 9 of 10 completed in 1.112556 seconds
+Iteration 10 of 10 completed in 1.076212 seconds
+
+Avg iteration time: 1.057683 seconds
+Total time: 10.576826 seconds
+Number of particles: 10000 
+Number of threads used: 4 
+
+--------------------------------------------------------
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.021161 seconds
+Iteration 2 of 10 completed in 0.016235 seconds
+Iteration 3 of 10 completed in 0.013657 seconds
+Iteration 4 of 10 completed in 0.012637 seconds
+Iteration 5 of 10 completed in 0.012366 seconds
+Iteration 6 of 10 completed in 0.019903 seconds
+Iteration 7 of 10 completed in 0.014669 seconds
+Iteration 8 of 10 completed in 0.011195 seconds
+Iteration 9 of 10 completed in 0.015981 seconds
+Iteration 10 of 10 completed in 0.011751 seconds
+
+Avg iteration time: 0.015082 seconds
+Total time: 0.150821 seconds
+Number of particles: 1000 
+Number of threads used: 8 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.050355 seconds
+Iteration 2 of 10 completed in 0.037670 seconds
+Iteration 3 of 10 completed in 0.048684 seconds
+Iteration 4 of 10 completed in 0.049275 seconds
+Iteration 5 of 10 completed in 0.044248 seconds
+Iteration 6 of 10 completed in 0.035820 seconds
+Iteration 7 of 10 completed in 0.038718 seconds
+Iteration 8 of 10 completed in 0.037542 seconds
+Iteration 9 of 10 completed in 0.039633 seconds
+Iteration 10 of 10 completed in 0.039441 seconds
+
+Avg iteration time: 0.042262 seconds
+Total time: 0.422621 seconds
+Number of particles: 2000 
+Number of threads used: 8 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.091173 seconds
+Iteration 2 of 10 completed in 0.087467 seconds
+Iteration 3 of 10 completed in 0.070615 seconds
+Iteration 4 of 10 completed in 0.073761 seconds
+Iteration 5 of 10 completed in 0.082883 seconds
+Iteration 6 of 10 completed in 0.087486 seconds
+Iteration 7 of 10 completed in 0.059137 seconds
+Iteration 8 of 10 completed in 0.074008 seconds
+Iteration 9 of 10 completed in 0.072660 seconds
+Iteration 10 of 10 completed in 0.077273 seconds
+
+Avg iteration time: 0.077754 seconds
+Total time: 0.777543 seconds
+Number of particles: 3000 
+Number of threads used: 8 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.115843 seconds
+Iteration 2 of 10 completed in 0.124940 seconds
+Iteration 3 of 10 completed in 0.116689 seconds
+Iteration 4 of 10 completed in 0.142469 seconds
+Iteration 5 of 10 completed in 0.134128 seconds
+Iteration 6 of 10 completed in 0.136358 seconds
+Iteration 7 of 10 completed in 0.141268 seconds
+Iteration 8 of 10 completed in 0.127418 seconds
+Iteration 9 of 10 completed in 0.142417 seconds
+Iteration 10 of 10 completed in 0.135511 seconds
+
+Avg iteration time: 0.131791 seconds
+Total time: 1.317910 seconds
+Number of particles: 4000 
+Number of threads used: 8 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.254793 seconds
+Iteration 2 of 10 completed in 0.191098 seconds
+Iteration 3 of 10 completed in 0.219877 seconds
+Iteration 4 of 10 completed in 0.179067 seconds
+Iteration 5 of 10 completed in 0.206343 seconds
+Iteration 6 of 10 completed in 0.223687 seconds
+Iteration 7 of 10 completed in 0.185003 seconds
+Iteration 8 of 10 completed in 0.249003 seconds
+Iteration 9 of 10 completed in 0.197211 seconds
+Iteration 10 of 10 completed in 0.203147 seconds
+
+Avg iteration time: 0.211063 seconds
+Total time: 2.110627 seconds
+Number of particles: 5000 
+Number of threads used: 8 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.322330 seconds
+Iteration 2 of 10 completed in 0.265707 seconds
+Iteration 3 of 10 completed in 0.273854 seconds
+Iteration 4 of 10 completed in 0.285423 seconds
+Iteration 5 of 10 completed in 0.224993 seconds
+Iteration 6 of 10 completed in 0.296803 seconds
+Iteration 7 of 10 completed in 0.247795 seconds
+Iteration 8 of 10 completed in 0.259379 seconds
+Iteration 9 of 10 completed in 0.273058 seconds
+Iteration 10 of 10 completed in 0.284888 seconds
+
+Avg iteration time: 0.273535 seconds
+Total time: 2.735349 seconds
+Number of particles: 6000 
+Number of threads used: 8 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.410249 seconds
+Iteration 2 of 10 completed in 0.379690 seconds
+Iteration 3 of 10 completed in 0.396017 seconds
+Iteration 4 of 10 completed in 0.412638 seconds
+Iteration 5 of 10 completed in 0.378858 seconds
+Iteration 6 of 10 completed in 0.384322 seconds
+Iteration 7 of 10 completed in 0.362575 seconds
+Iteration 8 of 10 completed in 0.339501 seconds
+Iteration 9 of 10 completed in 0.373467 seconds
+Iteration 10 of 10 completed in 0.407043 seconds
+
+Avg iteration time: 0.384542 seconds
+Total time: 3.845420 seconds
+Number of particles: 7000 
+Number of threads used: 8 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.519597 seconds
+Iteration 2 of 10 completed in 0.466275 seconds
+Iteration 3 of 10 completed in 0.490355 seconds
+Iteration 4 of 10 completed in 0.467592 seconds
+Iteration 5 of 10 completed in 0.545856 seconds
+Iteration 6 of 10 completed in 0.445341 seconds
+Iteration 7 of 10 completed in 0.500243 seconds
+Iteration 8 of 10 completed in 0.479222 seconds
+Iteration 9 of 10 completed in 0.536192 seconds
+Iteration 10 of 10 completed in 0.514576 seconds
+
+Avg iteration time: 0.496609 seconds
+Total time: 4.966090 seconds
+Number of particles: 8000 
+Number of threads used: 8 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.728941 seconds
+Iteration 2 of 10 completed in 0.587704 seconds
+Iteration 3 of 10 completed in 0.643148 seconds
+Iteration 4 of 10 completed in 0.613398 seconds
+Iteration 5 of 10 completed in 0.658826 seconds
+Iteration 6 of 10 completed in 0.544576 seconds
+Iteration 7 of 10 completed in 0.673497 seconds
+Iteration 8 of 10 completed in 0.634454 seconds
+Iteration 9 of 10 completed in 0.624036 seconds
+Iteration 10 of 10 completed in 0.601277 seconds
+
+Avg iteration time: 0.631133 seconds
+Total time: 6.311335 seconds
+Number of particles: 9000 
+Number of threads used: 8 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.885653 seconds
+Iteration 2 of 10 completed in 0.737062 seconds
+Iteration 3 of 10 completed in 0.697766 seconds
+Iteration 4 of 10 completed in 0.725437 seconds
+Iteration 5 of 10 completed in 0.682320 seconds
+Iteration 6 of 10 completed in 0.712261 seconds
+Iteration 7 of 10 completed in 0.777774 seconds
+Iteration 8 of 10 completed in 0.759310 seconds
+Iteration 9 of 10 completed in 0.778177 seconds
+Iteration 10 of 10 completed in 0.744790 seconds
+
+Avg iteration time: 0.750221 seconds
+Total time: 7.502211 seconds
+Number of particles: 10000 
+Number of threads used: 8 
+
+--------------------------------------------------------
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.020862 seconds
+Iteration 2 of 10 completed in 0.019143 seconds
+Iteration 3 of 10 completed in 0.018302 seconds
+Iteration 4 of 10 completed in 0.019266 seconds
+Iteration 5 of 10 completed in 0.017207 seconds
+Iteration 6 of 10 completed in 0.023623 seconds
+Iteration 7 of 10 completed in 0.015667 seconds
+Iteration 8 of 10 completed in 0.014379 seconds
+Iteration 9 of 10 completed in 0.016012 seconds
+Iteration 10 of 10 completed in 0.016684 seconds
+
+Avg iteration time: 0.018201 seconds
+Total time: 0.182009 seconds
+Number of particles: 1000 
+Number of threads used: 16 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.042042 seconds
+Iteration 2 of 10 completed in 0.054013 seconds
+Iteration 3 of 10 completed in 0.035158 seconds
+Iteration 4 of 10 completed in 0.044999 seconds
+Iteration 5 of 10 completed in 0.040092 seconds
+Iteration 6 of 10 completed in 0.033300 seconds
+Iteration 7 of 10 completed in 0.036272 seconds
+Iteration 8 of 10 completed in 0.041302 seconds
+Iteration 9 of 10 completed in 0.039195 seconds
+Iteration 10 of 10 completed in 0.035884 seconds
+
+Avg iteration time: 0.040337 seconds
+Total time: 0.403367 seconds
+Number of particles: 2000 
+Number of threads used: 16 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.089751 seconds
+Iteration 2 of 10 completed in 0.091157 seconds
+Iteration 3 of 10 completed in 0.083989 seconds
+Iteration 4 of 10 completed in 0.070416 seconds
+Iteration 5 of 10 completed in 0.076133 seconds
+Iteration 6 of 10 completed in 0.078166 seconds
+Iteration 7 of 10 completed in 0.086079 seconds
+Iteration 8 of 10 completed in 0.082757 seconds
+Iteration 9 of 10 completed in 0.070156 seconds
+Iteration 10 of 10 completed in 0.062773 seconds
+
+Avg iteration time: 0.079236 seconds
+Total time: 0.792358 seconds
+Number of particles: 3000 
+Number of threads used: 16 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.135170 seconds
+Iteration 2 of 10 completed in 0.126954 seconds
+Iteration 3 of 10 completed in 0.108955 seconds
+Iteration 4 of 10 completed in 0.139681 seconds
+Iteration 5 of 10 completed in 0.099625 seconds
+Iteration 6 of 10 completed in 0.141506 seconds
+Iteration 7 of 10 completed in 0.138896 seconds
+Iteration 8 of 10 completed in 0.099550 seconds
+Iteration 9 of 10 completed in 0.119347 seconds
+Iteration 10 of 10 completed in 0.096544 seconds
+
+Avg iteration time: 0.120706 seconds
+Total time: 1.207057 seconds
+Number of particles: 4000 
+Number of threads used: 16 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.209173 seconds
+Iteration 2 of 10 completed in 0.172036 seconds
+Iteration 3 of 10 completed in 0.207033 seconds
+Iteration 4 of 10 completed in 0.178425 seconds
+Iteration 5 of 10 completed in 0.188978 seconds
+Iteration 6 of 10 completed in 0.154286 seconds
+Iteration 7 of 10 completed in 0.182960 seconds
+Iteration 8 of 10 completed in 0.161233 seconds
+Iteration 9 of 10 completed in 0.185306 seconds
+Iteration 10 of 10 completed in 0.158742 seconds
+
+Avg iteration time: 0.179913 seconds
+Total time: 1.799130 seconds
+Number of particles: 5000 
+Number of threads used: 16 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.289772 seconds
+Iteration 2 of 10 completed in 0.239727 seconds
+Iteration 3 of 10 completed in 0.317048 seconds
+Iteration 4 of 10 completed in 0.287301 seconds
+Iteration 5 of 10 completed in 0.246240 seconds
+Iteration 6 of 10 completed in 0.226281 seconds
+Iteration 7 of 10 completed in 0.254303 seconds
+Iteration 8 of 10 completed in 0.259140 seconds
+Iteration 9 of 10 completed in 0.279393 seconds
+Iteration 10 of 10 completed in 0.285413 seconds
+
+Avg iteration time: 0.268565 seconds
+Total time: 2.685650 seconds
+Number of particles: 6000 
+Number of threads used: 16 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.371809 seconds
+Iteration 2 of 10 completed in 0.343633 seconds
+Iteration 3 of 10 completed in 0.311783 seconds
+Iteration 4 of 10 completed in 0.362452 seconds
+Iteration 5 of 10 completed in 0.318735 seconds
+Iteration 6 of 10 completed in 0.373348 seconds
+Iteration 7 of 10 completed in 0.337164 seconds
+Iteration 8 of 10 completed in 0.366102 seconds
+Iteration 9 of 10 completed in 0.353029 seconds
+Iteration 10 of 10 completed in 0.369552 seconds
+
+Avg iteration time: 0.350867 seconds
+Total time: 3.508673 seconds
+Number of particles: 7000 
+Number of threads used: 16 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.465975 seconds
+Iteration 2 of 10 completed in 0.404042 seconds
+Iteration 3 of 10 completed in 0.455657 seconds
+Iteration 4 of 10 completed in 0.463440 seconds
+Iteration 5 of 10 completed in 0.401807 seconds
+Iteration 6 of 10 completed in 0.417843 seconds
+Iteration 7 of 10 completed in 0.424230 seconds
+Iteration 8 of 10 completed in 0.462921 seconds
+Iteration 9 of 10 completed in 0.373021 seconds
+Iteration 10 of 10 completed in 0.439551 seconds
+
+Avg iteration time: 0.430997 seconds
+Total time: 4.309971 seconds
+Number of particles: 8000 
+Number of threads used: 16 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.564997 seconds
+Iteration 2 of 10 completed in 0.521189 seconds
+Iteration 3 of 10 completed in 0.597381 seconds
+Iteration 4 of 10 completed in 0.602161 seconds
+Iteration 5 of 10 completed in 0.539103 seconds
+Iteration 6 of 10 completed in 0.590582 seconds
+Iteration 7 of 10 completed in 0.512180 seconds
+Iteration 8 of 10 completed in 0.542167 seconds
+Iteration 9 of 10 completed in 0.546232 seconds
+Iteration 10 of 10 completed in 0.535199 seconds
+
+Avg iteration time: 0.555249 seconds
+Total time: 5.552495 seconds
+Number of particles: 9000 
+Number of threads used: 16 
+
+--------------------------------------------------------
+Iteration 1 of 10 completed in 0.711219 seconds
+Iteration 2 of 10 completed in 0.599233 seconds
+Iteration 3 of 10 completed in 0.718621 seconds
+Iteration 4 of 10 completed in 0.702502 seconds
+Iteration 5 of 10 completed in 0.704030 seconds
+Iteration 6 of 10 completed in 0.699890 seconds
+Iteration 7 of 10 completed in 0.720858 seconds
+Iteration 8 of 10 completed in 0.780018 seconds
+Iteration 9 of 10 completed in 0.611682 seconds
+Iteration 10 of 10 completed in 0.533985 seconds
+
+Avg iteration time: 0.678316 seconds
+Total time: 6.783158 seconds
+Number of particles: 10000 
+Number of threads used: 16 
+
+--------------------------------------------------------
+--------------------------------------------------------
