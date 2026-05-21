@@ -1,4 +1,4 @@
-%%writefile particles_cuda.cu
+// %%writefile particles_cuda.cu
 
 #include <stdio.h>
 #include <stdlib.h>
