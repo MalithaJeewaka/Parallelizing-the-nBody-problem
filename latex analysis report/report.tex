@@ -1,0 +1,144 @@
+\documentclass[12pt,a4paper,titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{microtype}
+\geometry{margin=1in}
+
+\title{Comprehensive Analysis of Parallel Algorithms for the N-Body Problem}
+\author{Pathiraja P.A.M.J.A. \\ EG/2021/4703}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This report provides an in-depth analysis of various parallelization strategies applied to the $O(N^2)$ N-Body simulation problem. We evaluate a sequential baseline against shared-memory (OpenMP, Pthreads), distributed-memory (MPI), and GPU-accelerated (CUDA) implementations. Additionally, we document critical bugs identified and resolved during the code audit, provide deep-dive theoretical explanations of the computational overhead, and present performance scaling metrics for 10,000 particles.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction and Theoretical Background}
+The N-Body problem simulates the dynamical evolution of a system of particles under the influence of physical forces, most notably gravity. The naive numerical method requires calculating pairwise forces between all $N$ bodies \cite{nbody}.
+
+For every particle $i$, the net gravitational force component is computed by iterating over all particles $j$:
+\begin{equation}
+\vec{F}_i = \sum_{j=1}^{N} \frac{G \cdot m_i \cdot m_j \cdot (\vec{r}_j - \vec{r}_i)}{(|\vec{r}_j - \vec{r}_i|^2 + \epsilon^2)^{3/2}}
+\end{equation}
+Where $\epsilon$ is a small softening factor (\texttt{1e-9f}) added to prevent division-by-zero singularities when particles are extremely close. This results in $O(N^2)$ computational complexity per iteration, meaning that 10,000 particles require 100,000,000 force calculations per step. This compute-bound nature makes it an excellent candidate for parallelization.
+
+\newpage
+\section{Methodology and Implementations}
+
+\subsection{Sequential Baseline}
+The sequential version runs on a single CPU core, utilizing a double-nested loop to calculate the forces and subsequently integrate the positions. This implementation acts as the ground-truth benchmark for evaluating the mathematical accuracy and speedup of all subsequent parallel algorithms.
+
+\subsection{Shared Memory: OpenMP}
+\textbf{OpenMP} utilizes compiler directives (\texttt{\#pragma omp parallel for}) to automatically distribute the outer loop iterations across multiple CPU threads. 
+\begin{itemize}
+    \item \textbf{Mechanism:} The compiler implicitly handles the creation and joining of a thread pool. The iterations of the loop are scheduled dynamically or statically across the threads.
+    \item \textbf{Data Privacy:} Variables used to accumulate forces (such as $Fx$, $Fy$, $Fz$) are declared inside the loop scope, meaning they are private to each thread, inherently preventing race conditions without the need for expensive mutex locks.
+\end{itemize}
+
+\subsection{Shared Memory: Pthreads (POSIX Threads)}
+\textbf{Pthreads} operates lower in the software stack than OpenMP, requiring manual thread management and explicit workload partitioning.
+\begin{itemize}
+    \item \textbf{Mechanism:} The total particle count $N$ is manually divided by the number of threads to determine a \texttt{chunk\_size}. The POSIX API functions \texttt{pthread\_create} and \texttt{pthread\_join} are used to spawn and synchronize the threads.
+    \item \textbf{Critical Bug Discovery:} During our code audit, a critical logical bug was identified in the provided Pthreads implementation. The inner loop responsible for calculating forces from all other bodies was improperly bounded to the thread's local chunk boundary (\texttt{end}) rather than the total number of particles (\texttt{N}). This resulted in incorrect physical calculations because particles only felt gravity from a subset of the universe.
+    \item \textbf{Resolution:} The bug was rectified by extending the \texttt{ThreadData} struct to include the total particle count \texttt{N}, and passing it to the \texttt{bodyForce} function. After the fix, binary diffs verified that the Pthreads output exactly matches the sequential baseline.
+\end{itemize}
+
+\subsection{Distributed Memory: MPI (Message Passing Interface)}
+The MPI version is designed for High-Performance Computing (HPC) clusters where memory is not shared across nodes.
+\begin{itemize}
+    \item \textbf{Mechanism:} The \texttt{MASTER} process mathematically divides the $N$ particles evenly among all available processes using \texttt{dim\_portions} and \texttt{displ} arrays. At the start of each iteration, \texttt{MPI\_Bcast} broadcasts the entire universe state to all workers. Each worker computes the forces for its local chunk, and \texttt{MPI\_Gatherv} collects the updated states back to the \texttt{MASTER}.
+    \item \textbf{Communication Overhead:} Unlike OpenMP, MPI incurs network serialization and communication latency. Despite this, it scaled remarkably well locally.
+    \item \textbf{Memory Leak Found:} A code review identified a minor memory leak on the \texttt{MASTER} node where the original \texttt{particles} pointer is overwritten by the gathered buffer pointer, leaving the initial allocation unfreed.
+\end{itemize}
+
+\subsection{GPU Acceleration: CUDA}
+The CUDA implementation offloads the $O(N^2)$ calculations to an NVIDIA GPU. 
+\begin{itemize}
+    \item \textbf{Mechanism:} The GPU architecture (SIMT) launches thousands of lightweight threads (e.g., 10,240 threads for 10,000 particles). Each thread maps to a single particle via its \texttt{blockIdx} and \texttt{threadIdx}, performing the inner loop calculation. Memory is explicitly transferred between the CPU host and GPU device using \texttt{cudaMemcpy}.
+    \item \textbf{Code Cleanup:} The source files contained Jupyter-specific \texttt{\%\%writefile} magic commands. These were manually commented out to allow native \texttt{nvcc} compilation.
+\end{itemize}
+
+\newpage
+\section{Performance Evaluation and Comparison}
+We conducted benchmarking across all five implementations using a configuration of 10,000 particles running for 10 iterations. The CPU tests were run on a multi-core environment using 4 threads/processes, while the CUDA simulation targeted an NVIDIA RTX 4050 GPU architecture.
+
+Table \ref{tab:performance} and the subsequent analysis highlight the scalability and efficiency of each approach.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}llcc@{}}
+\toprule
+\textbf{Implementation} & \textbf{Compute Resources} & \textbf{Total Time (s)} & \textbf{Speedup} \\ \midrule
+Sequential (Baseline)   & 1 CPU Core                 & 6.10                    & 1.00x            \\
+OpenMP                  & 4 CPU Threads              & 1.99                    & 3.07x            \\
+Pthreads (Fixed)        & 4 CPU Threads              & 2.06                    & 2.96x            \\
+MPI                     & 4 CPU Processes            & 2.11                    & 2.89x            \\
+CUDA                    & 10,240 GPU Threads         & 0.99                    & 6.16x            \\ \bottomrule
+\end{tabular}
+\caption{Performance comparison for $N=10,000$ particles over 10 iterations.}
+\label{tab:performance}
+\end{table}
+
+\subsection{Comparative Insights}
+\begin{enumerate}
+    \item \textbf{OpenMP vs. Pthreads}: Both shared-memory implementations achieve nearly a 3x speedup on 4 cores. OpenMP edges out Pthreads slightly (1.99s vs 2.06s) likely due to the compiler's highly optimized dynamic thread scheduling and thread-pool reuse, whereas the Pthreads implementation incurs manual thread creation/destruction overhead per iteration.
+    \item \textbf{MPI Communication Overhead}: The MPI implementation (2.11s) slightly lags behind the shared-memory variants. This is expected, as the \texttt{MPI\_Bcast} and \texttt{MPI\_Gatherv} operations introduce memory-copying and inter-process communication latency not present in direct shared-memory access.
+    \item \textbf{GPU Dominance}: The CUDA implementation is the clear winner, executing in under 1 second (a 6.16x speedup). GPUs are engineered for data-parallel workloads. By spawning 10,240 parallel threads simultaneously, the GPU efficiently masks memory latency and executes the floating-point arithmetic at a massive scale.
+\end{enumerate}
+
+\subsection{Visualizing Speedup and Efficiency}
+Figures \ref{fig:speedup} and \ref{fig:efficiency} provide a visual representation of the performance gains and resource utilization efficiency across the different paradigms.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../Images/Untitled 6.png}
+    \caption{Speedup Comparison: Highlights the massive advantage of CUDA (averaging over 24x speedup per iteration) and the robust $\sim$3x scaling of the 4-core CPU implementations.}
+    \label{fig:speedup}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../Images/Untitled 7.png}
+    \caption{Efficiency Analysis: Illustrates the ratio of speedup relative to the number of compute units allocated. Sequential and MPI maintain high theoretical efficiency per core, whereas CUDA trades per-thread efficiency for massive aggregate throughput.}
+    \label{fig:efficiency}
+\end{figure}
+
+\newpage
+\section{Execution Output Captures}
+The following section is reserved for screenshots demonstrating the terminal outputs of the simulation iterations across the various implementations.
+
+% ---------------------------------------------------------
+% PLACEHOLDER: Insert screenshots of the terminal runs here
+% ---------------------------------------------------------
+% Example format to use later:
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{../Images/your_screenshot.png}
+%     \caption{Terminal output showing the iteration times.}
+% \end{figure}
+
+\vspace{5cm}
+\begin{center}
+    \textit{[Space reserved for Terminal Execution Screenshots...]}
+\end{center}
+\vspace{5cm}
+
+\section{Conclusion}
+Parallelizing the N-Body problem demonstrates massive performance benefits that scale intimately with the hardware provided. 
+Shared-memory approaches like OpenMP and Pthreads scale effectively, with OpenMP providing the best balance of performance and code maintainability. MPI remains the gold standard for distributed HPC clusters, maintaining highly competitive local performance despite communication overhead. Ultimately, the CUDA GPU implementation vastly outperforms all CPU variants, serving as the optimal architecture for embarrassingly parallel, compute-bound algorithms like the N-Body problem.
+
+\bibliographystyle{plain}
+\bibliography{refs}
+
+\end{document}

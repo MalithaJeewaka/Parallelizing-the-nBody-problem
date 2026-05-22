@@ -1,4 +1,4 @@
-// %%writefile cuda_simulation_modified.cu
+4// %%writefile cuda_simulation_modified.cu
 
 #include <iostream>
 #include <fstream>
