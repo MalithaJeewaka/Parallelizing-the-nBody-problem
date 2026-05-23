@@ -1,5 +1,3 @@
-4// %%writefile cuda_simulation_modified.cu
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -44,6 +42,15 @@ __global__ void bodyForce(Particle *particles, int num_particles) {
     }
 }
 
+__global__ void integratePosition(Particle *particles, int num_particles) {
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i < num_particles) {
+        particles[i].x += particles[i].vx * dt;
+        particles[i].y += particles[i].vy * dt;
+        particles[i].z += particles[i].vz * dt;
+    }
+}
+
 void readFile(const std::string &filename, std::vector<Particle> &particles, int num_particles) {
     FILE *fileRead = fopen(filename.c_str(), "rb");
     if (fileRead == NULL) {
@@ -80,7 +87,7 @@ int main(int argc, char *argv[]) {
     particles.resize(num_particles);
 
     // Read particle data from file
-    readFile("../particles.bin", particles, num_particles);
+    readFile("./drive/MyDrive/HPC/particles.bin", particles, num_particles);
 
     // Allocate device memory
     Particle *d_particles;
@@ -109,6 +116,12 @@ int main(int argc, char *argv[]) {
         auto iter_start_time = std::chrono::high_resolution_clock::now();
 
         bodyForce<<<gridDim, blockDim>>>(d_particles, num_particles);
+        
+        // Wait for all threads to finish computing forces before moving particles
+        cudaDeviceSynchronize(); 
+        
+        // Integrate position (move particles)
+        integratePosition<<<gridDim, blockDim>>>(d_particles, num_particles);
         cudaDeviceSynchronize();
 
         // Copy data from device to host
@@ -131,8 +144,15 @@ int main(int argc, char *argv[]) {
     std::cout << "Avg iteration time: " << std::fixed << std::setprecision(5) << duration / I << " seconds\n";
     std::cout << "Total time: " << std::fixed << std::setprecision(5) << duration << " seconds\n";
 
+    /* Write the output to a binary file so we can view it using the python script */
+    FILE *fileWrite = fopen("./drive/MyDrive/HPC/cuda_output.bin", "wb");
+    if (fileWrite != NULL) {
+        fwrite(particles.data(), sizeof(Particle) * num_particles, 1, fileWrite);
+        fclose(fileWrite);
+    }
+
     // Validation against Sequential Baseline
-    FILE* fileBaseline = fopen("../sequential_output.bin", "rb");
+    FILE* fileBaseline = fopen("./drive/MyDrive/HPC/sequential_output.bin", "rb");
     if (fileBaseline != NULL) {
         std::vector<Particle> refParticles(num_particles);
         fread(refParticles.data(), sizeof(Particle) * num_particles, 1, fileBaseline);
@@ -160,10 +180,11 @@ int main(int argc, char *argv[]) {
             std::cout << "Output Values: MATCHED (Physics mathematically validated)\n";
         } else {
             std::cout << "Output Values: FAILED\n";
+            std::cout << "Debug Error: " << maxError << "\n";
         }
 
         // Read Sequential Time
-        FILE* timeFile = fopen("../sequential_time.txt", "r");
+        FILE* timeFile = fopen("./drive/MyDrive/HPC/sequential_time.txt", "r");
         if (timeFile != NULL) {
             double seqTime = 0.0;
             fscanf(timeFile, "%lf", &seqTime);
@@ -174,10 +195,10 @@ int main(int argc, char *argv[]) {
             std::cout << "CUDA Execution Time: " << std::fixed << std::setprecision(5) << duration << " seconds\n";
             std::cout << "Accuracy (Speedup): " << std::fixed << std::setprecision(2) << speedup << "x faster than Sequential!\n";
         } else {
-            std::cout << "Accuracy (Speedup): SKIPPED (Could not open ../sequential_time.txt)\n";
+            std::cout << "Accuracy (Speedup): SKIPPED (Could not open ./drive/MyDrive/HPC/sequential_time.txt)\n";
         }
     } else {
-        std::cout << "\nValidation: SKIPPED (Could not open ../sequential_output.bin)\n";
+        std::cout << "\nValidation: SKIPPED (Could not open ./drive/MyDrive/HPC/sequential_output.bin)\n";
     }
 
     // Free device memory

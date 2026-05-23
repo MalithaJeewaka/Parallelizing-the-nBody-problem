@@ -17,6 +17,7 @@ Because this folder generates the centralized data, **you must run this guide fi
 
 ### 1. Generate the Centralized Universe (`particles.bin`)
 First, open your terminal and navigate to the sequential folder:
+
 ```bash
 cd sequential
 gcc -o paramGen particle_production.c

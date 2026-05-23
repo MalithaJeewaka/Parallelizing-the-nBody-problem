@@ -1,3 +1,4 @@
+#include <omp.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,41 +22,37 @@ void bodyForce(Particle *all_particles, int startOffsetPortion, float dt, int di
 int convertStringToInt(char *str);
 
 int main(int argc, char* argv[]) {
-    MPI_Datatype particle_type;             // MPI datatype to communicate the "Particle" data type
-    int numtasks;                           // Number of used processors
-    int myrank;                             // Rank of the current process
-    double start, end, iterStart, iterEnd;  // Variables used for measuring the total execution time and each iteration
+    MPI_Datatype particle_type;
+    int numtasks;
+    int myrank;
+    double start, end, iterStart, iterEnd;
 
-    int *dim_portions;                      // Size of the workload portion for each process
-    int *displ;                             // Starting offset of the workload portion for each process
-    Particle *my_portion;                   // Portion of particles for a process
+    int *dim_portions;
+    int *displ;
+    Particle *my_portion;
 
-    int num_particles = 1000;  // Default number of particles if no parameter is provided on the command line
+    int num_particles = 1000;
     if (argc > 1) {
-        // Parameter provided from the command line indicating the number of particles
-        // Convert string to integer
         num_particles = convertStringToInt(argv[1]);
     }
 
-    /*** Initialize MPI ***/
-    MPI_Init(&argc, &argv);
+    // Initialize MPI with Thread Support for OpenMP
+    int provided;
+    MPI_Init_thread(&argc, &argv, MPI_THREAD_FUNNELED, &provided);
 
-    /*** Create MPI data type to communicate the "Particle" data type ***/
     MPI_Type_contiguous(7, MPI_FLOAT, &particle_type);
     MPI_Type_commit(&particle_type);
 
-    /*** Get the number of used processors and the rank of the current process ***/
     MPI_Comm_size(MPI_COMM_WORLD, &numtasks);
     MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
-    MPI_Barrier(MPI_COMM_WORLD);    /* All processes are initialized */
-    start = MPI_Wtime();            /* Record the start time of execution */
+    MPI_Barrier(MPI_COMM_WORLD);
+    start = MPI_Wtime();
 
-    /*** Calculate how particles are evenly associated with the processes ***/
     dim_portions = (int*)malloc(sizeof(int) * numtasks);
     displ = (int*)malloc(sizeof(int) * numtasks);
     compute_equal_workload_for_each_task(dim_portions, displ, num_particles, numtasks);
 
-    const float dt = 0.01f; // Time step
+    const float dt = 0.01f;
 
     Particle *particles = (Particle*)malloc(num_particles * sizeof(Particle));
     my_portion = (Particle*)malloc(sizeof(Particle) * dim_portions[myrank]);
@@ -63,35 +60,28 @@ int main(int argc, char* argv[]) {
     if (myrank == MASTER) gathered_particles = (Particle*)malloc(sizeof(Particle) * num_particles);
 
     for (int iteration = 0; iteration < I; iteration++) {
-
-        MPI_Barrier(MPI_COMM_WORLD);  // Synchronize processes before starting to measure the iteration execution time
+        MPI_Barrier(MPI_COMM_WORLD);
         iterStart = MPI_Wtime();
 
         if (iteration == 0) {
-            // First iteration, so all processors can read the initial state of particles from a file
             FILE* fileRead = fopen("../particles.bin", "rb");
             if (fileRead == NULL) {
-                /* Unable to open the file */
                 printf("\nUnable to open the file.\n");
                 exit(EXIT_FAILURE);
             }
 
             int particlesRead = fread(particles, sizeof(Particle) * num_particles, 1, fileRead);
             if (particlesRead == 0) {
-                /* The number of particles to read is greater than the number of particles in the file */
                 printf("ERROR: The number of particles to read is greater than the number of particles in the file\n");
                 exit(EXIT_FAILURE);
             }
-
             fclose(fileRead);
         } else {
-            // The MASTER processor has the array of particles as the output of the previous computation, so it broadcasts it
             MPI_Bcast(particles, num_particles, particle_type, MASTER, MPI_COMM_WORLD);
         }
 
         bodyForce(particles, displ[myrank], dt, dim_portions[myrank], num_particles);
 
-        /*** Gathering the computed portion from each process ***/
         MPI_Gatherv(particles + displ[myrank], dim_portions[myrank], particle_type, gathered_particles, dim_portions, displ, particle_type, MASTER, MPI_COMM_WORLD);
 
         if (myrank == MASTER) particles = gathered_particles;
@@ -101,8 +91,8 @@ int main(int argc, char* argv[]) {
         if (myrank == MASTER) printf("Iteration %d of %d completed in %f seconds\n", iteration + 1, I, (iterEnd - iterStart));
     }
 
-    MPI_Barrier(MPI_COMM_WORLD);     // All processes have finished
-    end = MPI_Wtime();               // Record the end time of execution
+    MPI_Barrier(MPI_COMM_WORLD);
+    end = MPI_Wtime();
     MPI_Finalize();
 
     if (myrank == MASTER) {
@@ -110,9 +100,14 @@ int main(int argc, char* argv[]) {
         double avgTime = totalTime / (double)(I);
         printf("\nAvg iteration time: %f seconds\n", avgTime);
         printf("Total time: %f seconds\n", totalTime);
-        printf("Number of particles %d \nNumber of porcesses: %d\n" , num_particles, numtasks);
+        printf("Number of particles: %d \nNumber of MPI processes: %d\n" , num_particles, numtasks);
 
-        // Validation against Sequential Baseline
+        FILE *fileWrite = fopen("../hybrid_output.bin", "wb");
+        if (fileWrite != NULL) {
+            fwrite(particles, sizeof(Particle) * num_particles, 1, fileWrite);
+            fclose(fileWrite);
+        }
+
         FILE* fileBaseline = fopen("../sequential_output.bin", "rb");
         if (fileBaseline != NULL) {
             Particle* refParticles = (Particle*)malloc(num_particles * sizeof(Particle));
@@ -141,9 +136,9 @@ int main(int argc, char* argv[]) {
                 printf("Output Values: MATCHED (Physics mathematically validated)\n");
             } else {
                 printf("Output Values: FAILED\n");
+                printf("Debug Error: %f\n", maxError);
             }
 
-            // Read Sequential Time
             FILE* timeFile = fopen("../sequential_time.txt", "r");
             if (timeFile != NULL) {
                 double seqTime = 0.0;
@@ -152,52 +147,38 @@ int main(int argc, char* argv[]) {
                 
                 double speedup = seqTime / totalTime;
                 printf("Sequential Execution Time: %f seconds\n", seqTime);
-                printf("MPI Execution Time: %f seconds\n", totalTime);
+                printf("Hybrid Execution Time: %f seconds\n", totalTime);
                 printf("Accuracy (Speedup): %.2fx faster than Sequential!\n", speedup);
             } else {
                 printf("Accuracy (Speedup): SKIPPED (Could not open ../sequential_time.txt)\n");
             }
-            
-            free(refParticles);
         } else {
             printf("\nValidation: SKIPPED (Could not open ../sequential_output.bin)\n");
         }
-
-        /* Write the output to a binary file so we can view it using the python script */
-        FILE *fileWrite = fopen("../mpi_output.bin", "wb");
-        if (fileWrite != NULL) {
-            fwrite(particles, sizeof(Particle) * num_particles, 1, fileWrite);
-            fclose(fileWrite);
-        }
     }
-
-    free(my_portion);
-    free(dim_portions);
-    free(displ);
-    free(particles);
-
     return 0;
 }
 
-/* Equal distribution of work among tasks */
 void compute_equal_workload_for_each_task(int *dim_portions, int *displs, int arraysize, int numtasks) {
+    int portion = arraysize / numtasks;
+    int remainder = arraysize % numtasks;
+
     for (int i = 0; i < numtasks; i++) {
-        dim_portions[i] = (arraysize / numtasks) +
-                          ((i < (arraysize % numtasks)) ? 1 : 0);
+        dim_portions[i] = portion;
+        if (i < remainder) {
+            dim_portions[i]++;
+        }
     }
 
-    // Set the displacements array: each index represents the start_offset of a task
     int offset = 0;
     for (int i = 0; i < numtasks; i++) {
         displs[i] = offset;
         offset += dim_portions[i];
     }
-    /* After this function, in the dim_portions array, each index is associated with a task
-    the value associated with a specific index represents the size of the workload portion associated with that task */
 }
 
-/* Function that performs computation on a specific workload portion */
 void bodyForce(Particle *all_particles, int startOffsetPortion, float dt, int dim_portion, int num_particles) {
+    #pragma omp parallel for
     for (int i = 0; i < dim_portion; i++) {
         float Fx = 0.0f;
         float Fy = 0.0f;
@@ -221,7 +202,7 @@ void bodyForce(Particle *all_particles, int startOffsetPortion, float dt, int di
         all_particles[startOffsetPortion + i].vz += dt * Fz;
     }
 
-    // Integrate the positions of my portion
+    #pragma omp parallel for
     for (int i = 0; i < dim_portion; i++) {
         all_particles[startOffsetPortion + i].x += all_particles[startOffsetPortion + i].vx * dt;
         all_particles[startOffsetPortion + i].y += all_particles[startOffsetPortion + i].vy * dt;
@@ -229,15 +210,13 @@ void bodyForce(Particle *all_particles, int startOffsetPortion, float dt, int di
     }
 }
 
-/* Conversion from string to integer */
 int convertStringToInt(char *str) {
     char *endptr;
     long val;
-    errno = 0;  // To distinguish success/failure after the call
+    errno = 0;
 
     val = strtol(str, &endptr, 10);
 
-    /* Check for possible errors */
     if ((errno == ERANGE && (val == LONG_MAX || val == LONG_MIN)) || (errno != 0 && val == 0)) {
         perror("strtol");
         exit(EXIT_FAILURE);
@@ -248,6 +227,5 @@ int convertStringToInt(char *str) {
         exit(EXIT_FAILURE);
     }
 
-    /* If we are here, strtol() has converted a number successfully */
     return (int)val;
 }

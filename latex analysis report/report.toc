@@ -1,0 +1,13 @@
+\contentsline {section}{\numberline {1}Introduction and Theoretical Background}{2}{section.1}%
+\contentsline {section}{\numberline {2}Methodology and Implementations}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Sequential Baseline}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Shared Memory: OpenMP}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Shared Memory: Pthreads (POSIX Threads)}{4}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Distributed Memory: MPI (Message Passing Interface)}{5}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Hybrid Architecture: MPI + OpenMP}{6}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}GPU Acceleration: CUDA}{9}{subsection.2.6}%
+\contentsline {section}{\numberline {3}Performance Evaluation and Comparison}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Comparative Insights}{10}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Visualizing Speedup and Execution Time}{10}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Thread Scaling Analysis}{11}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Conclusion}{13}{section.4}%

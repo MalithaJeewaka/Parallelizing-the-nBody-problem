@@ -80,6 +80,13 @@ int main(int argc, char* argv[]) {
     printf("Total time: %f seconds\n", totalTime);
     printf("Number of particles: %d \nNumber of threads used: %d ", nBodies, num_of_threads);
 
+    /* Write the output to a binary file so we can view it using the python script */
+    FILE *fileWrite = fopen("../pthreads_output.bin", "wb");
+    if (fileWrite != NULL) {
+        fwrite(particles, sizeof(Particle) * nBodies, 1, fileWrite);
+        fclose(fileWrite);
+    }
+
     // Validation against Sequential Baseline
     FILE* fileBaseline = fopen("../sequential_output.bin", "rb");
     if (fileBaseline != NULL) {
