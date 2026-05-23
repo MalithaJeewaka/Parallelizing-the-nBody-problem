@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.7)  23 MAY 2026 20:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.5.7)  23 MAY 2026 21:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -404,29 +404,29 @@ Package pdftex.def Info: ../Images/outputs/sequential_output.png  used on input 
 <../Images/outputs/openMP_output_with_2_threads.png, id=98, 1114.91531pt x 437.38406pt>
 File: ../Images/outputs/openMP_output_with_2_threads.png Graphic file (type png)
 <use ../Images/outputs/openMP_output_with_2_threads.png>
-Package pdftex.def Info: ../Images/outputs/openMP_output_with_2_threads.png  used on input line 57.
+Package pdftex.def Info: ../Images/outputs/openMP_output_with_2_threads.png  used on input line 58.
 (pdftex.def)             Requested size: 407.66833pt x 159.92749pt.
 <../Images/outputs/openMP_output_with_4_threads.png, id=99, 1152.55594pt x 438.13687pt>
 File: ../Images/outputs/openMP_output_with_4_threads.png Graphic file (type png)
 <use ../Images/outputs/openMP_output_with_4_threads.png>
-Package pdftex.def Info: ../Images/outputs/openMP_output_with_4_threads.png  used on input line 60.
+Package pdftex.def Info: ../Images/outputs/openMP_output_with_4_threads.png  used on input line 61.
 (pdftex.def)             Requested size: 407.66833pt x 154.97475pt.
 <../Images/outputs/openMP_output_with_8_threads.png, id=100, 1077.27469pt x 431.36156pt>
 File: ../Images/outputs/openMP_output_with_8_threads.png Graphic file (type png)
 <use ../Images/outputs/openMP_output_with_8_threads.png>
-Package pdftex.def Info: ../Images/outputs/openMP_output_with_8_threads.png  used on input line 63.
+Package pdftex.def Info: ../Images/outputs/openMP_output_with_8_threads.png  used on input line 64.
 (pdftex.def)             Requested size: 407.66833pt x 163.24113pt.
  [3
 pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.66 
+l.67 
       <../Images/outputs/sequential_output.png>] [4
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.72     \item \textbf
-                      {Resolution:} The bug was rectified by extending the \... <../Images/outputs/openMP_output_with_2_threads.png> <../Images/outputs/openMP_output_with_4_threads.png> <../Images/outputs/openMP_output_with_8_threads.png>]
+l.73 \end{itemize}
+                   <../Images/outputs/openMP_output_with_2_threads.png> <../Images/outputs/openMP_output_with_4_threads.png> <../Images/outputs/openMP_output_with_8_threads.png>]
 <../Images/outputs/pthreads_output_with_2_threads.png, id=116, 1366.35469pt x 416.30531pt>
 File: ../Images/outputs/pthreads_output_with_2_threads.png Graphic file (type png)
 <use ../Images/outputs/pthreads_output_with_2_threads.png>
@@ -446,8 +446,8 @@ Package pdftex.def Info: ../Images/outputs/pthreads_output_with_8_threads.png  u
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.91     \item \textbf
-                      {Memory Leak Found:} A code review identified a minor ... <../Images/outputs/pthreads_output_with_2_threads.png> <../Images/outputs/pthreads_output_with_4_threads.png> <../Images/outputs/pthreads_output_with_8_threads.png>]
+l.92 \end{itemize}
+                   <../Images/outputs/pthreads_output_with_2_threads.png> <../Images/outputs/pthreads_output_with_4_threads.png> <../Images/outputs/pthreads_output_with_8_threads.png>]
 <../Images/outputs/mpi_output_with_2_threads.png, id=128, 1178.15157pt x 436.63126pt>
 File: ../Images/outputs/mpi_output_with_2_threads.png Graphic file (type png)
 <use ../Images/outputs/mpi_output_with_2_threads.png>
@@ -472,32 +472,32 @@ l.110     \item \textbf
 <../Images/outputs/hybrid_output_with_2_threads_2_processes.png, id=139, 1179.65718pt x 432.11438pt>
 File: ../Images/outputs/hybrid_output_with_2_threads_2_processes.png Graphic file (type png)
 <use ../Images/outputs/hybrid_output_with_2_threads_2_processes.png>
-Package pdftex.def Info: ../Images/outputs/hybrid_output_with_2_threads_2_processes.png  used on input line 115.
+Package pdftex.def Info: ../Images/outputs/hybrid_output_with_2_threads_2_processes.png  used on input line 116.
 (pdftex.def)             Requested size: 407.66833pt x 149.33017pt.
 <../Images/outputs/hybrid_output_with_2_threads_4_processes.png, id=140, 1221.81468pt x 433.62pt>
 File: ../Images/outputs/hybrid_output_with_2_threads_4_processes.png Graphic file (type png)
 <use ../Images/outputs/hybrid_output_with_2_threads_4_processes.png>
-Package pdftex.def Info: ../Images/outputs/hybrid_output_with_2_threads_4_processes.png  used on input line 118.
+Package pdftex.def Info: ../Images/outputs/hybrid_output_with_2_threads_4_processes.png  used on input line 119.
 (pdftex.def)             Requested size: 407.66833pt x 144.683pt.
 <../Images/outputs/hybrid_output_with_4_threads_2_processes.png, id=141, 1215.03937pt x 460.72125pt>
 File: ../Images/outputs/hybrid_output_with_4_threads_2_processes.png Graphic file (type png)
 <use ../Images/outputs/hybrid_output_with_4_threads_2_processes.png>
-Package pdftex.def Info: ../Images/outputs/hybrid_output_with_4_threads_2_processes.png  used on input line 121.
+Package pdftex.def Info: ../Images/outputs/hybrid_output_with_4_threads_2_processes.png  used on input line 122.
 (pdftex.def)             Requested size: 407.66833pt x 154.57632pt.
 <../Images/outputs/hybrid_output_with_4_threads_4_processes.png, id=142, 1224.82594pt x 433.62pt>
 File: ../Images/outputs/hybrid_output_with_4_threads_4_processes.png Graphic file (type png)
 <use ../Images/outputs/hybrid_output_with_4_threads_4_processes.png>
-Package pdftex.def Info: ../Images/outputs/hybrid_output_with_4_threads_4_processes.png  used on input line 124.
+Package pdftex.def Info: ../Images/outputs/hybrid_output_with_4_threads_4_processes.png  used on input line 125.
 (pdftex.def)             Requested size: 407.66833pt x 144.3257pt.
 <../Images/outputs/hybrid_output_with_8_threads_2_processes.png, id=143, 1177.39874pt x 435.87843pt>
 File: ../Images/outputs/hybrid_output_with_8_threads_2_processes.png Graphic file (type png)
 <use ../Images/outputs/hybrid_output_with_8_threads_2_processes.png>
-Package pdftex.def Info: ../Images/outputs/hybrid_output_with_8_threads_2_processes.png  used on input line 127.
+Package pdftex.def Info: ../Images/outputs/hybrid_output_with_8_threads_2_processes.png  used on input line 128.
 (pdftex.def)             Requested size: 407.66833pt x 150.91695pt.
 <../Images/outputs/hybrid_output_with_8_threads_4_processes.png, id=144, 1231.60126pt x 430.60875pt>
 File: ../Images/outputs/hybrid_output_with_8_threads_4_processes.png Graphic file (type png)
 <use ../Images/outputs/hybrid_output_with_8_threads_4_processes.png>
-Package pdftex.def Info: ../Images/outputs/hybrid_output_with_8_threads_4_processes.png  used on input line 130.
+Package pdftex.def Info: ../Images/outputs/hybrid_output_with_8_threads_4_processes.png  used on input line 131.
 (pdftex.def)             Requested size: 407.66833pt x 142.5284pt.
  [7]
 Overfull \vbox (272.53319pt too high) has occurred while \output is active []
@@ -506,62 +506,67 @@ Overfull \vbox (272.53319pt too high) has occurred while \output is active []
 pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.133 
+l.134 
        <../Images/outputs/hybrid_output_with_2_threads_2_processes.png> <../Images/outputs/hybrid_output_with_2_threads_4_processes.png> <../Images/outputs/hybrid_output_with_4_threads_2_processes.png> <../Images/outputs/hybrid_output_with_4_threads_4_processes.png> <../Images/outputs/hybrid_output_with_8_threads_2_processes.png> <../Images/outputs/hybrid_output_with_8_threads_4_processes.png>]
 <../Images/outputs/cuda_output.png, id=160, 881.54344pt x 406.51875pt>
 File: ../Images/outputs/cuda_output.png Graphic file (type png)
 <use ../Images/outputs/cuda_output.png>
-Package pdftex.def Info: ../Images/outputs/cuda_output.png  used on input line 144.
+Package pdftex.def Info: ../Images/outputs/cuda_output.png  used on input line 167.
 (pdftex.def)             Requested size: 362.37569pt x 167.10797pt.
  [9
-pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.148 \newpage
-               <../Images/outputs/cuda_output.png>]
-<../Images/plot_time.png, id=170, 722.7pt x 433.62pt>
-File: ../Images/plot_time.png Graphic file (type png)
-<use ../Images/plot_time.png>
-Package pdftex.def Info: ../Images/plot_time.png  used on input line 182.
-(pdftex.def)             Requested size: 407.66833pt x 244.59877pt.
- [10
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.186 
-      ]
-<../Images/plot_speedup.png, id=181, 722.7pt x 433.62pt>
-File: ../Images/plot_speedup.png Graphic file (type png)
-<use ../Images/plot_speedup.png>
-Package pdftex.def Info: ../Images/plot_speedup.png  used on input line 189.
+l.170 
+      ] [10
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.171 \newpage
+               <../Images/outputs/cuda_output.png>]
+<../Images/plot_time.png, id=176, 722.7pt x 433.62pt>
+File: ../Images/plot_time.png Graphic file (type png)
+<use ../Images/plot_time.png>
+Package pdftex.def Info: ../Images/plot_time.png  used on input line 205.
 (pdftex.def)             Requested size: 407.66833pt x 244.59877pt.
  [11
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.209 
+      ]
+<../Images/plot_speedup.png, id=188, 722.7pt x 433.62pt>
+File: ../Images/plot_speedup.png Graphic file (type png)
+<use ../Images/plot_speedup.png>
+Package pdftex.def Info: ../Images/plot_speedup.png  used on input line 212.
+(pdftex.def)             Requested size: 407.66833pt x 244.59877pt.
+ [12
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.215 \end{table}
+l.238 \end{table}
                  
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.215 \end{table}
+l.238 \end{table}
                   <../Images/plot_time.png> <../Images/plot_speedup.png>]
-<../Images/plot_scaling.png, id=190, 722.7pt x 433.62pt>
+<../Images/plot_scaling.png, id=196, 722.7pt x 433.62pt>
 File: ../Images/plot_scaling.png Graphic file (type png)
 <use ../Images/plot_scaling.png>
-Package pdftex.def Info: ../Images/plot_scaling.png  used on input line 219.
+Package pdftex.def Info: ../Images/plot_scaling.png  used on input line 242.
 (pdftex.def)             Requested size: 407.66833pt x 244.59877pt.
- [12
-pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
+ [13
+pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.226 \newpage
+l.249 \newpage
               
 pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.226 \newpage
-               <../Images/plot_scaling.png>] (report.bbl) [13] (report.aux)
+l.249 \newpage
+               <../Images/plot_scaling.png>] (report.bbl) [14] (report.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
@@ -570,17 +575,17 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: ACD53D08F0D1C503CA7CFFD9A173F37E;2715.
  ) 
 Here is how much of TeX's memory you used:
- 12066 strings out of 467691
- 196806 string characters out of 5414504
- 648213 words of memory out of 5000000
- 40850 multiletter control sequences out of 15000+600000
- 637820 words of font info for 120 fonts, out of 8000000 for 9000
+ 12088 strings out of 467691
+ 196990 string characters out of 5414504
+ 648302 words of memory out of 5000000
+ 40851 multiletter control sequences out of 15000+600000
+ 638291 words of font info for 129 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,9n,79p,1075b,547s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,9n,79p,1075b,549s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\LENOVO\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/LENOVO/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on report.pdf (15 pages, 1636957 bytes).
+Output written on report.pdf (16 pages, 1638427 bytes).
 PDF statistics:
- 263 PDF objects out of 1000 (max. 8388607)
- 45 named destinations out of 1000 (max. 500000)
+ 269 PDF objects out of 1000 (max. 8388607)
+ 48 named destinations out of 1000 (max. 500000)
  27341 words of extra memory for PDF output out of 29859 (max. 10000000)
 

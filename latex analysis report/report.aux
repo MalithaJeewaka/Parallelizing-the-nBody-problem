@@ -15,24 +15,26 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces MPI execution outputs across 2, 4, and 8 distributed processes.}}{6}{figure.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Hybrid Architecture: MPI + OpenMP}{6}{subsection.2.5}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Hybrid architecture execution outputs across varying process-to-thread configurations.}}{8}{figure.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Scaling analysis of Hybrid architecture under intense configurations.}}{9}{table.1}\protected@file@percent }
+\newlabel{tab:hybrid_scaling}{{1}{9}{Scaling analysis of Hybrid architecture under intense configurations}{table.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.6}GPU Acceleration: CUDA}{9}{subsection.2.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces CUDA GPU execution output demonstrating massive speedup and mathematical parity after FMA resolution.}}{9}{figure.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Performance Evaluation and Comparison}{10}{section.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Performance comparison for $N=10,000$ particles over 10 iterations.}}{10}{table.1}\protected@file@percent }
-\newlabel{tab:performance}{{1}{10}{Performance comparison for $N=10,000$ particles over 10 iterations}{table.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Comparative Insights}{10}{subsection.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Visualizing Speedup and Execution Time}{10}{subsection.3.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Execution Time Comparison: Highlights the steep drop in computation time when moving from Sequential to Parallel CPU models, and the ultimate reduction achieved by the GPU.}}{11}{figure.7}\protected@file@percent }
-\newlabel{fig:time}{{7}{11}{Execution Time Comparison: Highlights the steep drop in computation time when moving from Sequential to Parallel CPU models, and the ultimate reduction achieved by the GPU}{figure.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Speedup Comparison: Demonstrates the robust $\sim $3x scaling of the CPU implementations (with Hybrid taking the lead) and the massive 12x hardware acceleration of CUDA.}}{11}{figure.8}\protected@file@percent }
-\newlabel{fig:speedup}{{8}{11}{Speedup Comparison: Demonstrates the robust $\sim $3x scaling of the CPU implementations (with Hybrid taking the lead) and the massive 12x hardware acceleration of CUDA}{figure.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Thread Scaling Analysis}{11}{subsection.3.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Scaling execution time and speedup across varying computational units.}}{12}{table.2}\protected@file@percent }
-\newlabel{tab:scaling}{{2}{12}{Scaling execution time and speedup across varying computational units}{table.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Thread Scaling Comparison: Visually demonstrates the principle of diminishing returns. Scaling from 2 to 4 threads provides a massive drop in execution time, while scaling from 4 to 8 yields heavily diminished returns due to the hardware limits of the local CPU cores and communication overhead.}}{12}{figure.9}\protected@file@percent }
-\newlabel{fig:scaling}{{9}{12}{Thread Scaling Comparison: Visually demonstrates the principle of diminishing returns. Scaling from 2 to 4 threads provides a massive drop in execution time, while scaling from 4 to 8 yields heavily diminished returns due to the hardware limits of the local CPU cores and communication overhead}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces CUDA GPU execution output demonstrating massive speedup over CPU-based architectures.}}{10}{figure.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Performance Evaluation and Comparison}{11}{section.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Performance comparison for $N=10,000$ particles over 10 iterations.}}{11}{table.2}\protected@file@percent }
+\newlabel{tab:performance}{{2}{11}{Performance comparison for $N=10,000$ particles over 10 iterations}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Comparative Insights}{11}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Visualizing Speedup and Execution Time}{11}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Execution Time Comparison: Highlights the steep drop in computation time when moving from Sequential to Parallel CPU models, and the ultimate reduction achieved by the GPU.}}{12}{figure.7}\protected@file@percent }
+\newlabel{fig:time}{{7}{12}{Execution Time Comparison: Highlights the steep drop in computation time when moving from Sequential to Parallel CPU models, and the ultimate reduction achieved by the GPU}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Speedup Comparison: Demonstrates the robust $\sim $3x scaling of the CPU implementations (with Hybrid taking the lead) and the massive 12x hardware acceleration of CUDA.}}{12}{figure.8}\protected@file@percent }
+\newlabel{fig:speedup}{{8}{12}{Speedup Comparison: Demonstrates the robust $\sim $3x scaling of the CPU implementations (with Hybrid taking the lead) and the massive 12x hardware acceleration of CUDA}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Thread Scaling Analysis}{12}{subsection.3.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Scaling execution time and speedup across varying computational units.}}{13}{table.3}\protected@file@percent }
+\newlabel{tab:scaling}{{3}{13}{Scaling execution time and speedup across varying computational units}{table.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Thread Scaling Comparison: Visually demonstrates the principle of diminishing returns. Scaling from 2 to 4 threads provides a massive drop in execution time, while scaling from 4 to 8 yields heavily diminished returns due to the hardware limits of the local CPU cores and communication overhead.}}{13}{figure.9}\protected@file@percent }
+\newlabel{fig:scaling}{{9}{13}{Thread Scaling Comparison: Visually demonstrates the principle of diminishing returns. Scaling from 2 to 4 threads provides a massive drop in execution time, while scaling from 4 to 8 yields heavily diminished returns due to the hardware limits of the local CPU cores and communication overhead}{figure.9}{}}
 \bibstyle{plain}
 \bibdata{refs}
 \bibcite{nbody}{1}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion}{13}{section.4}\protected@file@percent }
-\gdef \@abspage@last{15}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion}{14}{section.4}\protected@file@percent }
+\gdef \@abspage@last{16}

@@ -18,7 +18,7 @@
 \maketitle
 
 \begin{abstract}
-This report provides an in-depth analysis of various parallelization strategies applied to the $O(N^2)$ N-Body simulation problem. We evaluate a sequential baseline against shared-memory (OpenMP, Pthreads), distributed-memory (MPI), hybrid (MPI + OpenMP), and GPU-accelerated (CUDA) implementations. Additionally, we document critical bugs identified and resolved during the code audit, provide deep-dive theoretical explanations of computational overhead such as the N-Body chaotic divergence, and present performance scaling metrics for 10,000 particles.
+This report provides an in-depth analysis of various parallelization strategies applied to the $O(N^2)$ N-Body simulation problem. We evaluate a sequential baseline against shared-memory (OpenMP, Pthreads), distributed-memory (MPI), hybrid (MPI + OpenMP), and GPU-accelerated (CUDA) implementations. Additionally, we provide deep-dive theoretical explanations of computational overhead, and present performance scaling metrics for 10,000 particles.
 \end{abstract}
 
 \tableofcontents
@@ -50,7 +50,7 @@ The sequential version runs on a single CPU core, utilizing a double-nested loop
 \begin{itemize}
     \item \textbf{Mechanism:} The compiler implicitly handles the creation and joining of a thread pool. The iterations of the loop are scheduled dynamically or statically across the threads.
     \item \textbf{Data Privacy:} Variables used to accumulate forces (such as $Fx$, $Fy$, $Fz$) are declared inside the loop scope, meaning they are private to each thread, inherently preventing race conditions without the need for expensive mutex locks.
-    \item \textbf{Key Findings \& Scaling:} The outputs confirm that thread synchronization works flawlessly without mathematical deviation. Increasing from 2 to 4 threads significantly reduces execution time (from 3.09s to 1.74s), but scaling to 8 threads provides diminished returns (1.59s), confirming Amdahl's Law regarding the limits of local shared-memory scaling.
+    \item \textbf{Key Findings \& Scaling:} The algorithm was explicitly tested using 2, 4, and 8 threads. As observed in the output results, increasing from 2 to 4 threads yielded a significant decrease in execution time (dropping from 3.09s to 1.74s). However, testing with 8 threads resulted in 1.59s, demonstrating a much smaller decrease in time. This significant finding highlights the diminishing returns of shared-memory scaling when approaching the physical limits of the CPU cores.
 \end{itemize}
 
 \begin{figure}[H]
@@ -69,9 +69,7 @@ The sequential version runs on a single CPU core, utilizing a double-nested loop
 \textbf{Pthreads} operates lower in the software stack than OpenMP, requiring manual thread management and explicit workload partitioning.
 \begin{itemize}
     \item \textbf{Mechanism:} The total particle count $N$ is manually divided by the number of threads to determine a \texttt{chunk\_size}. The POSIX API functions \texttt{pthread\_create} and \texttt{pthread\_join} are used to spawn and synchronize the threads.
-    \item \textbf{Critical Bug Discovery:} During our code audit, a critical logical bug was identified in the provided Pthreads implementation. The inner loop responsible for calculating forces from all other bodies was improperly bounded to the thread's local chunk boundary (\texttt{end}) rather than the total number of particles (\texttt{N}). This resulted in incorrect physical calculations.
-    \item \textbf{Resolution:} The bug was rectified by extending the \texttt{ThreadData} struct to include the total particle count \texttt{N}, and passing it to the \texttt{bodyForce} function. After the fix, binary diffs verified that the Pthreads output exactly matches the sequential baseline.
-    \item \textbf{Key Findings \& Scaling:} As seen in the output logs, Pthreads achieved parity with OpenMP, dropping from 3.06s (2 threads) to 1.48s (8 threads). While manual thread management introduces slightly more code complexity, it successfully circumvents race conditions and scales consistently across the local CPU cores.
+    \item \textbf{Key Findings \& Scaling:} We tested the Pthreads implementation with 2, 4, and 8 threads. The results mirrored the OpenMP behavior, showing a steady decrease in execution time from 3.06s (2 threads) down to 1.48s (8 threads). A significant finding is that despite the increased complexity of manual thread management, Pthreads successfully circumvented race conditions and scaled almost identically to OpenMP.
 \end{itemize}
 
 \begin{figure}[H]
@@ -90,8 +88,7 @@ The sequential version runs on a single CPU core, utilizing a double-nested loop
 The MPI version is designed for High-Performance Computing (HPC) clusters where memory is not shared across nodes.
 \begin{itemize}
     \item \textbf{Mechanism:} The \texttt{MASTER} process mathematically divides the $N$ particles evenly among all available processes using \texttt{dim\_portions} and \texttt{displ} arrays. At the start of each iteration, \texttt{MPI\_Bcast} broadcasts the entire universe state to all workers. Each worker computes the forces for its local chunk, and \texttt{MPI\_Gatherv} collects the updated states back to the \texttt{MASTER}.
-    \item \textbf{Memory Leak Found:} A code review identified a minor memory leak on the \texttt{MASTER} node where the original \texttt{particles} pointer is overwritten by the gathered buffer pointer, leaving the initial allocation unfreed.
-    \item \textbf{Key Findings \& Scaling:} The generated outputs prove that distributed memory nodes successfully reconstruct the entire N-Body universe at the end of each timestep. MPI scaled aggressively from 2.93s (2 processes) to 1.71s (4 processes). However, moving to 8 processes only yielded 1.62s, indicating that the network communication overhead of \texttt{MPI\_Bcast} and \texttt{MPI\_Gatherv} begins to heavily bottleneck the mathematical speedup at higher node counts.
+    \item \textbf{Key Findings \& Scaling:} The distributed architecture was tested with 2, 4, and 8 isolated processes. The output results show a strong initial decrease in time from 2.93s (2 processes) to 1.71s (4 processes). However, testing with 8 processes only lowered the time to 1.62s. A significant finding here is that the heavy network communication overhead required to repeatedly broadcast and gather the universe state eventually bottlenecks the raw mathematical speedup when scaling up the number of nodes.
 \end{itemize}
 
 \begin{figure}[H]
@@ -111,7 +108,7 @@ To achieve the ultimate CPU utilization, a \textbf{Hybrid} model was introduced,
 \begin{itemize}
     \item \textbf{Mechanism:} MPI divides the 10,000 particles across cluster nodes (e.g., 2 MPI processes handle 5,000 particles each). Once the subset is received, OpenMP uses local threads (\texttt{OMP\_NUM\_THREADS=2}) to compute the forces for that subset simultaneously across the CPU cores of that specific node.
     \item \textbf{Benefits:} This drastically reduces the MPI communication overhead by requiring fewer large network nodes while maximizing the hyper-threaded hardware capabilities within each individual node.
-    \item \textbf{Key Findings \& Scaling:} The hybrid output logs uniquely demonstrate multiple MPI processes each spawning multiple OpenMP threads. This approach yielded excellent results: 4 processes running 2 threads each (8 total compute units) achieved 1.62s. By keeping MPI processes low, we minimized network broadcast overhead, while simultaneously maximizing node-local processing via OpenMP.
+    \item \textbf{Key Findings \& Scaling:} As detailed below, we tested multiple combinations of processes and threads. We observed that by distributing the workload across 4 MPI processes and assigning 4 OpenMP threads to each (16 total compute units), the time decreased to a record 1.28s. A key finding is that minimizing network broadcasts while simultaneously maximizing local hyper-threading is the most effective way to utilize a CPU cluster, drastically outperforming pure MPI or pure OpenMP.
 \end{itemize}
 
 \begin{figure}[H]
@@ -135,19 +132,40 @@ To achieve the ultimate CPU utilization, a \textbf{Hybrid} model was introduced,
     \caption{Hybrid architecture execution outputs across varying process-to-thread configurations.}
 \end{figure}
 
+\subsubsection*{Process-to-Thread Ratio Analysis}
+To determine the absolute physical limits of the underlying CPU architecture, we conducted a rigorous test grid spanning 2 and 4 MPI processes, cross-multiplying each with 2, 4, and 8 OpenMP threads. 
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{}llcc@{}}
+\toprule
+\textbf{MPI Processes} & \textbf{OpenMP Threads/Process} & \textbf{Total Compute Units} & \textbf{Execution Time (s)} \\ \midrule
+2                      & 2                               & 4                            & 1.75s                       \\
+2                      & 4                               & 8                            & 1.78s                       \\
+2                      & 8                               & 16                           & 1.77s                       \\
+4                      & 2                               & 8                            & 1.55s                       \\
+4                      & 4                               & 16                           & \textbf{1.28s}              \\
+4                      & 8                               & 32                           & 1.65s                       \\ \bottomrule
+\end{tabular}
+}
+\caption{Scaling analysis of Hybrid architecture under intense configurations.}
+\label{tab:hybrid_scaling}
+\end{table}
+
+The empirical data demonstrates a definitive "sweet spot". Increasing threads exclusively under 2 processes stalled performance at approximately 1.75s, unable to break the plateau. Conversely, distributing the master payload across 4 processes alleviated the network congestion, allowing the OpenMP threads to scale aggressively. Ultimately, the configuration of \textbf{4 processes running 4 threads each (16 total compute units)} achieved a phenomenal \textbf{1.28 seconds}---the absolute fastest CPU execution recorded. However, pushing beyond this threshold (to 32 compute units) caused times to regress (1.65s), proving that we had exceeded the hardware's physical capabilities and triggered destructive context-switching overhead.
+
 \subsection{GPU Acceleration: CUDA}
 The CUDA implementation offloads the $O(N^2)$ calculations to an NVIDIA GPU. 
 \begin{itemize}
     \item \textbf{Mechanism:} The GPU architecture (SIMT) launches 10,240 parallel threads to compute 10,000 particles. Each thread handles a single particle via its \texttt{blockIdx} and \texttt{threadIdx}. 
-    \item \textbf{Critical Missing Logic:} The original provided CUDA code suffered from a catastrophic logical failure: it never integrated the positions. Particles were assigned velocities but never moved physically, leading to a massive drift error of 97,233.95 compared to the baseline. We solved this by implementing a secondary \texttt{integratePosition} kernel.
-    \item \textbf{The N-Body Butterfly Effect (FMA Divergence):} Even after fixing the kernel, the GPU exhibited a drift deviation of 30.9 over 10 iterations. Because the gravity softening factor $\epsilon$ is incredibly small (\texttt{1e-9f}), the microscopic floating-point rounding differences generated by the GPU's Fused Multiply-Add (FMA) hardware instruction snowballed into massive divergence due to the chaotic nature of the N-Body problem. Compiling with \texttt{-fmad=false} forced strict IEEE-754 adherence, flawlessly matching the CPU math and solving the divergence.
-    \item \textbf{Key Findings \& Scaling:} The CUDA output is a singular, massive leap in performance. Rather than scaling linearly with 2 or 8 threads, CUDA dispatched 10,240 lightweight GPU threads simultaneously. This resulted in an execution time of just 0.45s---a 12.06x speedup over the sequential baseline. This proves that while CPU threading suffers from Amdahl's Law and network bottlenecks, the N-Body problem is ultimately an "embarrassingly parallel" algorithm built for GPU architecture.
+    \item \textbf{Key Findings \& Scaling:} The GPU acceleration was tested by spawning 10,240 lightweight CUDA threads to calculate all particles simultaneously. The output results show an extraordinary decrease in execution time down to just 0.45s. A significant finding is that the N-Body problem is an "embarrassingly parallel" algorithm perfectly suited for GPU architecture, yielding a massive 12.06x speedup over the sequential baseline and drastically outperforming all CPU-based methods.
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{../Images/outputs/cuda_output.png}
-    \caption{CUDA GPU execution output demonstrating massive speedup and mathematical parity after FMA resolution.}
+    \caption{CUDA GPU execution output demonstrating massive speedup over CPU-based architectures.}
 \end{figure}
 
 \newpage
