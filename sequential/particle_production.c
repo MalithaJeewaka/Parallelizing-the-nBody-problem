@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
     randomizeParticles(particles, num_particles);
 
     // Write particles to file in binary mode
-    FILE *file = fopen("particles.txt", "wb");
+    FILE *file = fopen("../particles.bin", "wb");
     if (file != NULL) {
         fwrite(particles, sizeof(Particle), num_particles, file);
         fclose(file);
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
         clock_t end = clock();
         double elapsed_time = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-        printf("%d particles have been created with random values and written to file: sequential_output.bin in binary format.\n", num_particles);
+        printf("%d particles have been created with random values and written to file: ../particles.bin in binary format.\n", num_particles);
         printf("Elapsed time for generating %d particles is: %f seconds.\n", num_particles, elapsed_time);
     }
 

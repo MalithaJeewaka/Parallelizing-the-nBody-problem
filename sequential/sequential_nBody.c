@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
     Particle *particles = NULL;
     particles = (Particle *)malloc(nBodies * sizeof(Particle));
 
-    FILE *fileRead = fopen("particles.txt", "r");
+    FILE *fileRead = fopen("../particles.bin", "rb");
     if (fileRead == NULL) {
         /* Unable to open the file */
         printf("\nUnable to open the file.\n");
@@ -82,6 +82,14 @@ int main(int argc, char* argv[]) {
     endTotal = clock();
     totalTime = (double)(endTotal - startTotal) / CLOCKS_PER_SEC;
     double avgTime = totalTime / (double)(nIters);
+
+    // Save execution time for parallel comparisons
+    FILE *timeFile = fopen("../sequential_time.txt", "w");
+    if (timeFile != NULL) {
+        fprintf(timeFile, "%f\n", totalTime);
+        fclose(timeFile);
+    }
+
     printf("\nAvg iteration time: %f seconds\n", avgTime);
     printf("Total time: %f seconds\n", totalTime);
     printf("Number of particles: %d ", nBodies);
@@ -99,7 +107,7 @@ int main(int argc, char* argv[]) {
     }*/
 
     /* Write the output to a file to evaluate correctness by comparing with parallel output */
-    FILE *fileWrite = fopen("sequential_output.txt", "w");
+    FILE *fileWrite = fopen("../sequential_output.bin", "wb");
     if (fileWrite != NULL) {
         fwrite(particles, sizeof(Particle) * nBodies, 1, fileWrite);
         fclose(fileWrite);

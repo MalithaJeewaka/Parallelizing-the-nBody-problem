@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
 
         if (iteration == 0) {
             // First iteration, so all processors can read the initial state of particles from a file
-            FILE *fileRead = fopen("particles.txt", "r");
+            FILE* fileRead = fopen("../particles.bin", "rb");
             if (fileRead == NULL) {
                 /* Unable to open the file */
                 printf("\nUnable to open the file.\n");
@@ -82,20 +82,6 @@ int main(int argc, char* argv[]) {
                 printf("ERROR: The number of particles to read is greater than the number of particles in the file\n");
                 exit(EXIT_FAILURE);
             }
-
-            /* TEST: Uncomment to write the initial state of particles to stdout after reading from file
-            if (myrank == MASTER) {
-                printf("INPUT\n");
-                for (int i = 0; i < num_particles; i++) {
-                    printf("[%d].x = %f\t", i, particles[i].x);
-                    printf("[%d].y = %f\t", i, particles[i].y);
-                    printf("[%d].z = %f\t", i, particles[i].z);
-                    printf("[%d].vx = %f\t", i, particles[i].vx);
-                    printf("[%d].vy = %f\t", i, particles[i].vy);
-                    printf("[%d].vz = %f\t", i, particles[i].vz);
-                    printf("\n");
-                }
-            }*/
 
             fclose(fileRead);
         } else {
@@ -126,17 +112,56 @@ int main(int argc, char* argv[]) {
         printf("Total time: %f seconds\n", totalTime);
         printf("Number of particles %d \nNumber of porcesses: %d\n" , num_particles, numtasks);
 
-        /* TEST: Uncomment to write the final state of particles to stdout after computation
-        printf("\nOUTPUT\n");
-        for (int i = 0; i < num_particles; i++) {
-            printf("[%d].x = %f\t", i, particles[i].x);
-            printf("[%d].y = %f\t", i, particles[i].y);
-            printf("[%d].z = %f\t", i, particles[i].z);
-            printf("[%d].vx = %f\t", i, particles[i].vx);
-            printf("[%d].vy = %f\t", i, particles[i].vy);
-            printf("[%d].vz = %f\t", i, particles[i].vz);
-            printf("\n");
-        }*/
+        // Validation against Sequential Baseline
+        FILE* fileBaseline = fopen("../sequential_output.bin", "rb");
+        if (fileBaseline != NULL) {
+            Particle* refParticles = (Particle*)malloc(num_particles * sizeof(Particle));
+            fread(refParticles, sizeof(Particle) * num_particles, 1, fileBaseline);
+            fclose(fileBaseline);
+
+            float maxError = 0.0f;
+            for (int i = 0; i < num_particles; i++) {
+                float errX = fabs(particles[i].x - refParticles[i].x);
+                float errY = fabs(particles[i].y - refParticles[i].y);
+                float errZ = fabs(particles[i].z - refParticles[i].z);
+                float errVx = fabs(particles[i].vx - refParticles[i].vx);
+                float errVy = fabs(particles[i].vy - refParticles[i].vy);
+                float errVz = fabs(particles[i].vz - refParticles[i].vz);
+                
+                if (errX > maxError) maxError = errX;
+                if (errY > maxError) maxError = errY;
+                if (errZ > maxError) maxError = errZ;
+                if (errVx > maxError) maxError = errVx;
+                if (errVy > maxError) maxError = errVy;
+                if (errVz > maxError) maxError = errVz;
+            }
+
+            printf("\n--- Performance & Accuracy Validation ---\n");
+            if (maxError < 1e-3f) {
+                printf("Output Values: MATCHED (Physics mathematically validated)\n");
+            } else {
+                printf("Output Values: FAILED\n");
+            }
+
+            // Read Sequential Time
+            FILE* timeFile = fopen("../sequential_time.txt", "r");
+            if (timeFile != NULL) {
+                double seqTime = 0.0;
+                fscanf(timeFile, "%lf", &seqTime);
+                fclose(timeFile);
+                
+                double speedup = seqTime / totalTime;
+                printf("Sequential Execution Time: %f seconds\n", seqTime);
+                printf("MPI Execution Time: %f seconds\n", totalTime);
+                printf("Accuracy (Speedup): %.2fx faster than Sequential!\n", speedup);
+            } else {
+                printf("Accuracy (Speedup): SKIPPED (Could not open ../sequential_time.txt)\n");
+            }
+            
+            free(refParticles);
+        } else {
+            printf("\nValidation: SKIPPED (Could not open ../sequential_output.bin)\n");
+        }
 
         /* Write the output to a file for later correctness evaluation by comparing with sequential output */
         FILE *fileWrite = fopen("parallel_output.txt", "w");

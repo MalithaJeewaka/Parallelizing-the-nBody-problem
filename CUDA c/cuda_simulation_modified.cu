@@ -44,22 +44,15 @@ __global__ void bodyForce(Particle *particles, int num_particles) {
     }
 }
 
-void readFile(const std::string &filename, std::vector<Particle> &particles) {
-    std::ifstream file(filename);
-    if (!file.is_open()) {
+void readFile(const std::string &filename, std::vector<Particle> &particles, int num_particles) {
+    FILE *fileRead = fopen(filename.c_str(), "rb");
+    if (fileRead == NULL) {
         std::cerr << "Error opening file: " << filename << std::endl;
         exit(EXIT_FAILURE);
     }
-
-    std::string line;
-    while (std::getline(file, line)) {
-        std::istringstream iss(line);
-        Particle p;
-        iss >> p.mass >> p.x >> p.y >> p.z >> p.vx >> p.vy >> p.vz;
-        particles.push_back(p);
-    }
-
-    file.close();
+    particles.resize(num_particles);
+    fread(particles.data(), sizeof(Particle) * num_particles, 1, fileRead);
+    fclose(fileRead);
 }
 
 void saveParticleData(const std::vector<Particle> &particles, int iteration, std::ofstream &outputFile) {
@@ -87,7 +80,7 @@ int main(int argc, char *argv[]) {
     particles.resize(num_particles);
 
     // Read particle data from file
-    readFile("particle_output.txt", particles);
+    readFile("../particles.bin", particles, num_particles);
 
     // Allocate device memory
     Particle *d_particles;
@@ -137,6 +130,55 @@ int main(int argc, char *argv[]) {
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count() / 1e6; // Convert to seconds
     std::cout << "Avg iteration time: " << std::fixed << std::setprecision(5) << duration / I << " seconds\n";
     std::cout << "Total time: " << std::fixed << std::setprecision(5) << duration << " seconds\n";
+
+    // Validation against Sequential Baseline
+    FILE* fileBaseline = fopen("../sequential_output.bin", "rb");
+    if (fileBaseline != NULL) {
+        std::vector<Particle> refParticles(num_particles);
+        fread(refParticles.data(), sizeof(Particle) * num_particles, 1, fileBaseline);
+        fclose(fileBaseline);
+
+        float maxError = 0.0f;
+        for (int i = 0; i < num_particles; i++) {
+            float errX = std::abs(particles[i].x - refParticles[i].x);
+            float errY = std::abs(particles[i].y - refParticles[i].y);
+            float errZ = std::abs(particles[i].z - refParticles[i].z);
+            float errVx = std::abs(particles[i].vx - refParticles[i].vx);
+            float errVy = std::abs(particles[i].vy - refParticles[i].vy);
+            float errVz = std::abs(particles[i].vz - refParticles[i].vz);
+            
+            if (errX > maxError) maxError = errX;
+            if (errY > maxError) maxError = errY;
+            if (errZ > maxError) maxError = errZ;
+            if (errVx > maxError) maxError = errVx;
+            if (errVy > maxError) maxError = errVy;
+            if (errVz > maxError) maxError = errVz;
+        }
+
+        std::cout << "\n--- Performance & Accuracy Validation ---\n";
+        if (maxError < 1e-3f) {
+            std::cout << "Output Values: MATCHED (Physics mathematically validated)\n";
+        } else {
+            std::cout << "Output Values: FAILED\n";
+        }
+
+        // Read Sequential Time
+        FILE* timeFile = fopen("../sequential_time.txt", "r");
+        if (timeFile != NULL) {
+            double seqTime = 0.0;
+            fscanf(timeFile, "%lf", &seqTime);
+            fclose(timeFile);
+            
+            double speedup = seqTime / duration;
+            std::cout << "Sequential Execution Time: " << std::fixed << std::setprecision(5) << seqTime << " seconds\n";
+            std::cout << "CUDA Execution Time: " << std::fixed << std::setprecision(5) << duration << " seconds\n";
+            std::cout << "Accuracy (Speedup): " << std::fixed << std::setprecision(2) << speedup << "x faster than Sequential!\n";
+        } else {
+            std::cout << "Accuracy (Speedup): SKIPPED (Could not open ../sequential_time.txt)\n";
+        }
+    } else {
+        std::cout << "\nValidation: SKIPPED (Could not open ../sequential_output.bin)\n";
+    }
 
     // Free device memory
     cudaFree(d_particles);

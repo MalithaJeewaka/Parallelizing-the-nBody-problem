@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
     double startTotal = omp_get_wtime();
     Particle* particles = (Particle*)malloc(nBodies * sizeof(Particle));
 
-    FILE* fileRead = fopen("particles.txt", "r");
+    FILE* fileRead = fopen("../particles.bin", "rb");
     if (fileRead == NULL) {
         /* Unable to open the file */
         printf("\nUnable to open the file.\n");
@@ -104,10 +104,55 @@ int main(int argc, char* argv[]) {
     printf("Number of particles: %d\n", nBodies);
     printf("Number of threads used: %d\n", numThreads);
 
-    FILE* fileWrite = fopen("openmp_output.txt", "w");
-    if (fileWrite != NULL) {
-        fwrite(particles, sizeof(Particle) * nBodies, 1, fileWrite);
-        fclose(fileWrite);
+    // Validation against Sequential Baseline
+    FILE* fileBaseline = fopen("../sequential_output.bin", "rb");
+    if (fileBaseline != NULL) {
+        Particle* refParticles = (Particle*)malloc(nBodies * sizeof(Particle));
+        fread(refParticles, sizeof(Particle) * nBodies, 1, fileBaseline);
+        fclose(fileBaseline);
+
+        float maxError = 0.0f;
+        for (int i = 0; i < nBodies; i++) {
+            float errX = fabs(particles[i].x - refParticles[i].x);
+            float errY = fabs(particles[i].y - refParticles[i].y);
+            float errZ = fabs(particles[i].z - refParticles[i].z);
+            float errVx = fabs(particles[i].vx - refParticles[i].vx);
+            float errVy = fabs(particles[i].vy - refParticles[i].vy);
+            float errVz = fabs(particles[i].vz - refParticles[i].vz);
+            
+            if (errX > maxError) maxError = errX;
+            if (errY > maxError) maxError = errY;
+            if (errZ > maxError) maxError = errZ;
+            if (errVx > maxError) maxError = errVx;
+            if (errVy > maxError) maxError = errVy;
+            if (errVz > maxError) maxError = errVz;
+        }
+
+        printf("\n--- Performance & Accuracy Validation ---\n");
+        if (maxError < 1e-3f) {
+            printf("Output Values: MATCHED (Physics mathematically validated)\n");
+        } else {
+            printf("Output Values: FAILED\n");
+        }
+
+        // Read Sequential Time
+        FILE* timeFile = fopen("../sequential_time.txt", "r");
+        if (timeFile != NULL) {
+            double seqTime = 0.0;
+            fscanf(timeFile, "%lf", &seqTime);
+            fclose(timeFile);
+            
+            double speedup = seqTime / totalTime;
+            printf("Sequential Execution Time: %f seconds\n", seqTime);
+            printf("OpenMP Execution Time: %f seconds\n", totalTime);
+            printf("Accuracy (Speedup): %.2fx faster than Sequential!\n", speedup);
+        } else {
+            printf("Accuracy (Speedup): SKIPPED (Could not open ../sequential_time.txt)\n");
+        }
+        
+        free(refParticles);
+    } else {
+        printf("Validation: SKIPPED (Could not open ../sequential_output.bin)\n");
     }
 
     free(particles);
