@@ -150,7 +150,7 @@ void computeForces(Particle* particles, float dt, int n, int num_threads) {
     for (int i = 0; i < num_threads; i++) {
         thread_data[i].particles = particles;
         thread_data[i].dt = dt;
-        thread_data[i].start = i * chunk_size;
+        thread_data[i].start = i *  ;
         thread_data[i].end = (i == num_threads - 1) ? n : (i + 1) * chunk_size;
         thread_data[i].n = n;
         pthread_create(&threads[i], NULL, bodyForceThread, &thread_data[i]);

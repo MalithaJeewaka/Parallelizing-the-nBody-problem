@@ -16,7 +16,6 @@ typedef struct {
     float vx, vy, vz;
 } Particle;
 
-// Function prototypes
 void compute_equal_workload_for_each_task(int *dim_portions, int *displs, int arraysize, int numtasks);
 void bodyForce(Particle *all_particles, int startOffsetPortion, float dt, int dim_portion, int num_particles);
 int convertStringToInt(char *str);

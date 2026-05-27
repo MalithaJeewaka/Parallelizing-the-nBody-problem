@@ -11,14 +11,12 @@ typedef struct {
     float vx, vy, vz;
 } Particle;
 
-/* Function Declarations */
 int convertStringToInt(char *str);
 void randomizeParticles(Particle *particles, int n);
 
 int main(int argc, char *argv[]) {
-    int num_particles = 100000; // Default number of particles if no parameter is provided on the command line
+    int num_particles = 100000; 
     if (argc > 1) {
-        // If a command-line parameter indicating the number of particles is provided, convert it to an integer
         num_particles = convertStringToInt(argv[1]);
     }
 
@@ -55,7 +53,7 @@ int main(int argc, char *argv[]) {
 int convertStringToInt(char *str) {
     char *endptr;
     long val;
-    errno = 0; // To distinguish success/failure after the call
+    errno = 0; 
 
     val = strtol(str, &endptr, 10);
 
@@ -70,7 +68,6 @@ int convertStringToInt(char *str) {
         exit(EXIT_FAILURE);
     }
 
-    /* If we are here, strtol() successfully converted a number */
     return (int)val;
 }
 

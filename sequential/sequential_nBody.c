@@ -52,7 +52,8 @@ int main(int argc, char* argv[]) {
     }
     fclose(fileRead);
 
-    /* TEST: Uncomment to write the initial state of particles to stdout after reading from the file
+    /* 
+    file
     printf("INPUT\n");
     for(int i=0; i< nBodies; i++){
         printf("[%d].x = %f\t", i, particles[i].x);

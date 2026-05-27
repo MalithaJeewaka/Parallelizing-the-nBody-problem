@@ -8,9 +8,6 @@
 
 #define SOFTENING 1e-9f
 
-/* Implementing the simulation of the n-body problem
-   Parallel version using OpenMP tasks */
-
 typedef struct {
     float mass;
     float x, y, z;
